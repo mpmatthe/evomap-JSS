@@ -6,13 +6,13 @@ import numpy as np
 import pandas as pd
 from scipy.sparse import coo_matrix
 
-def dist2sim(dist_mat, transformation = 'inverse', eps = 1e-3):
-    """ Transform a distance matrix to a similarity matrix
+def diss2sim(diss_mat, transformation = 'inverse', eps = 1e-3):
+    """ Transform a dissimilarity matrix to a similarity matrix
 
     Parameters
     ----------
-    dist_mat : ndarray of shape (n_samples, n_samples)
-        Matrix of pairwise distances.
+    diss_mat : ndarray of shape (n_samples, n_samples)
+        Matrix of pairwise dissimilarities.
     transformation : str, optional
         Transformation function, either 'inverse' or 'mirror', by default 'inverse'
     eps : float, optional
@@ -25,12 +25,12 @@ def dist2sim(dist_mat, transformation = 'inverse', eps = 1e-3):
     """
 
     if transformation == "inverse":
-        sim_mat = 1/(1+dist_mat)
+        sim_mat = 1/(1+diss_mat)
 
     elif transformation == "mirror":
-        # Normalize distances to [0,1), than mirror it
-        dist_mat = dist_mat / (np.max(dist_mat)+eps)
-        sim_mat = 1 - dist_mat
+        # Normalize dissimilarities to [0,1), than mirror it
+        diss_mat = diss_mat / (np.max(diss_mat)+eps)
+        sim_mat = 1 - diss_mat
         
     else:
         raise ValueError('Unknown transformation type')
@@ -38,8 +38,8 @@ def dist2sim(dist_mat, transformation = 'inverse', eps = 1e-3):
     np.fill_diagonal(sim_mat, 1)
     return sim_mat   
 
-def sim2dist(sim_mat, transformation = 'inverse', eps = 1e-4):
-    """ Transform a similarity matrix to a distance matrix.
+def sim2diss(sim_mat, transformation = 'inverse', eps = 1e-4):
+    """ Transform a similarity matrix to a dissimilarity matrix.
 
     Parameters
     ----------
@@ -53,20 +53,20 @@ def sim2dist(sim_mat, transformation = 'inverse', eps = 1e-4):
     Returns
     -------
     ndaray of shape (n_samples, n_samples)
-        Matrix of pairwise distances.
+        Matrix of pairwise dissimilarities.
     """
 
     if transformation == 'inverse':
         sim_mat = np.maximum(sim_mat, eps)
-        dist_mat = (1/sim_mat)
+        diss_mat = (1/sim_mat)
 
     elif transformation == 'mirror':
         # Normalize similarities to [0,1]
 #        sim_mat = sim_mat / (np.max(sim_mat)+eps)
-        dist_mat = np.max(sim_mat) + eps - sim_mat
+        diss_mat = np.max(sim_mat) + eps - sim_mat
 
-    np.fill_diagonal(dist_mat, 0)
-    return dist_mat 
+    np.fill_diagonal(diss_mat, 0)
+    return diss_mat 
 
 def coocc2sim(coocc_mat):
     """ Transform a matrix with co-occurrence counts to a similarity matrix. 
@@ -138,36 +138,36 @@ def edgelist2matrix(df, score_var, id_var_i, id_var_j, time_var = None, time_sel
     return S, np.array(ids)
 
 
-def normalize_dist_mat(D):
+def normalize_diss_mat(D):
 
-    max_dist = np.max(D) 
-    D_norm = D / max_dist
+    max_diss = np.max(D) 
+    D_norm = D / max_diss
     return D_norm
 
-def normalize_dist_mats(D_ts):
-    """ Normalize a sequence of distance matrices by a common factor 
-    (the max. distance within the sequence).
+def normalize_diss_mats(D_ts):
+    """ Normalize a sequence of dissimilarity matrices by a common factor 
+    (the max. dissimilarity within the sequence).
     
     Parameters
     ----------
     D_ts : list of ndarrays, each of shape (n_samples, n_samples)
-        Sequence of distance matrices.
+        Sequence of dissimilarity matrices.
     Returns
     -------
     D_ts: ndarray of shape (n_samples, n_samples)
-        Sequence of distance matrices, normalized by the maximum distance within
+        Sequence of dissimilarity matrices, normalized by the maximum dissimilarity within
         the input sequence.
 
     """
     n_periods = len(D_ts)
-    max_dist = - np.inf
+    max_diss = - np.inf
     for t in range(n_periods):
-        max_dist_t = np.max(D_ts[t]) 
-        if max_dist_t > max_dist:
-            max_dist = max_dist_t
+        max_diss_t = np.max(D_ts[t]) 
+        if max_diss_t > max_diss:
+            max_diss = max_diss_t
 
     for t in range(n_periods):
-        D_ts[t] = D_ts[t] / max_dist
+        D_ts[t] = D_ts[t] / max_diss
     return D_ts
 
 

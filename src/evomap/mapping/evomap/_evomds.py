@@ -16,7 +16,6 @@ class EvoMDS(EvoMap):
         alpha = 0,                      
         p = 1,                          
         n_dims = 2, 
-        metric = True,  
         n_iter = 2000,  
         n_iter_check = 50,
         init = None, 
@@ -32,7 +31,6 @@ class EvoMDS(EvoMap):
 
         super().__init__(alpha = alpha, p = p)
         self.n_dims = n_dims
-        self.metric = metric
         self.n_iter = n_iter
         self.n_iter_check = n_iter_check
         self.init = init

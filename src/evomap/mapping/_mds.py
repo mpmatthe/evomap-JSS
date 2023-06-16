@@ -175,7 +175,7 @@ def _normalized_stress_function(
         distances_flat = distances[np.tril_indices(len(distances),-1)]
         disparities_flat = disparities[np.tril_indices(len(disparities),-1)]        
 
-        disp_hat = ir.fit_transform(disparities_flat, distances_flat)
+        disp_hat = ir.fit_transform(distances_flat, disparities_flat)
         disp_hat = disp_hat.reshape(-1)
         disp_hat = normalize_dhat(disp_hat, n_samples)
 
