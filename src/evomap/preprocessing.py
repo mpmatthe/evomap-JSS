@@ -61,9 +61,11 @@ def sim2diss(sim_mat, transformation = 'inverse', eps = 1e-4):
         diss_mat = (1/sim_mat)
 
     elif transformation == 'mirror':
-        # Normalize similarities to [0,1]
-#        sim_mat = sim_mat / (np.max(sim_mat)+eps)
-        diss_mat = np.max(sim_mat) + eps - sim_mat
+        # Normalize similarities to [0,1]       
+        if np.max(sim_mat)>1:
+            sim_mat = sim_mat / (np.max(sim_mat)+eps)
+        
+        diss_mat = 1 - sim_mat
 
     np.fill_diagonal(diss_mat, 0)
     return diss_mat 
@@ -137,6 +139,44 @@ def edgelist2matrix(df, score_var, id_var_i, id_var_j, time_var = None, time_sel
     S = np.nan_to_num(S, 0)
     return S, np.array(ids)
 
+def edgelist2matrices(df, score_var, id_var_i, id_var_j, time_var):
+    """Transform a time-indexed edgelist to a sequence of relationship matrices.
+
+    Parameters
+    ----------
+    df : DataFrame
+        Data containing the edgelist. Each row should include a pair. Needs to include
+        two id variables, a score variable, and a time variable. 
+    score_var : string
+        The score variable. 
+    id_var_i : string
+        The first id variable.
+    id_var_j : string
+        The second id variable.
+    time_var : string
+        The time variable (int)
+
+    Returns
+    -------
+    S_t: list of ndarrays of shape (n_samples, n_samples) with length (n_periods)
+        A sequence of relationship matrices.
+
+    ids_t: ndarray of shape (n_samles, )
+        Identifiers for each element of the matrix.
+    """
+    periods = df[time_var].unique()
+    S_t = []
+    ids_t = []
+    for period in periods:
+        data_t = df[df[time_var] == period]
+        S, ids = edgelist2matrix(data_t, 
+                                        score_var = score_var,
+                                         id_var_i = id_var_i, 
+                                         id_var_j = id_var_j)
+        S_t.append(S)
+        ids_t.append(ids)
+
+    return S_t, ids_t
 
 def normalize_diss_mat(D):
 

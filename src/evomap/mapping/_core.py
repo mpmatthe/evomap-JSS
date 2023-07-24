@@ -115,8 +115,12 @@ def gradient_descent_line_search(
                     grad_norm = grad_norm)
 
         if grad_norm <= min_grad_norm:
-            print("[{0}] Iteration {1}: gradient norm vanished. Final cost: {2:.2f}".format(method_str, i, error))
+            if verbose > 0:
+                print("[{0}] Iteration {1}: gradient norm vanished. Final cost: {2:.2f}".format(method_str, i+1, error))
             break
+        elif i==n_iter-1:
+            if verbose > 0:
+                print("[{0}] Maximum number of iterations reached. Final cost: {1:.2f}".format(method_str, error))
 
     return Y, error
 
@@ -199,7 +203,7 @@ def gradient_descent_with_momentum(objective,
         error, grad = objective(Y, *args, **kwargs)
 
         if np.any(grad >= 1/EPSILON):
-            print('[{0}] Diverging gradient norm at iteration {1}'.format(method_str, i+1))
+            print('[{0}] Diverging gradient norm at iteration {1}'.format(method_str, iter+1))
             raise DivergingGradientError()
 
         dec = np.sign(iY) == np.sign(grad)
@@ -221,9 +225,12 @@ def gradient_descent_with_momentum(objective,
                     grad_norm = grad_norm)
 
         if grad_norm <= min_grad_norm:
-            if verbose > 1:
-                print("[{0}] Iteration {1}: gradient norm vanished.".format(method_str, iter, grad_norm))
+            if verbose > 0:
+                print("[{0}] Iteration {1}: gradient norm vanished.".format(method_str, iter+1, grad_norm))
                 break
+        elif iter==n_iter-1:
+            if verbose > 0:
+                print("[{0}] Maximum number of iterations reached. Final cost: {1:.2f}".format(method_str, error))
 
     return Y, error
 

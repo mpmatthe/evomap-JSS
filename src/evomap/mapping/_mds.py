@@ -64,7 +64,8 @@ class MDS():
         best_cost = np.inf
         for i in range(self.n_inits):
             if self.verbose > 0:
-                print("[{0}] Initialization {1}/{2}".format(self.method_str,i+1, self.n_inits))
+                if self.n_inits > 1:
+                    print("[{0}] Initialization {1}/{2}".format(self.method_str,i+1, self.n_inits))
 
             if self.init is None:
                 init = np.random.normal(0,.1,(n_samples, n_dims))

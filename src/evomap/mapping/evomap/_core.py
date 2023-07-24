@@ -80,13 +80,18 @@ class EvoMap():
         n_samples = Xs[0].shape[0]
         n_periods = len(Xs)
         if self.init is None:
-            init = np.random.normal(0,.1,(n_samples, self.n_dims))
-            init = np.concatenate([init]*n_periods, axis = 0)
+#            init = np.random.normal(0,.1,(n_samples, self.n_dims))
+#            init = np.concatenate([init]*n_periods, axis = 0)
+            init_t = np.zeros((0, self.n_dims))
+            for t in range(n_periods):
+                init = np.random.normal(0,.1,(n_samples, self.n_dims))
+                init_t = np.concatenate([init_t, init], axis = 0)
+
         else:
             # Stack list of initialization arrays
-            init = np.concatenate(self.init, axis = 0)
+            init_t = np.concatenate(self.init, axis = 0)
 
-        return init
+        return init_t
 
 
     def _validate_input(self, Xs, inclusions = None):
