@@ -164,6 +164,7 @@ class EvoMap():
         n_periods = len(Xs)
         n_samples = Xs[0].shape[0]
         kwargs.update({'compute_grad': False, 'compute_error': True})
+        cost_ts = []
         for t in range(n_periods):
             Y_t = _get_positions_for_period(Y_all_periods, n_samples, t)
             if not inclusions is None:
@@ -171,9 +172,12 @@ class EvoMap():
                 X_t = Xs[t][inclusions[t] == 1, :][:, inclusions[t] == 1]
             else:
                 X_t = Xs[t]
+            if static_cost_kwargs is None:
+                static_cost_kwargs = {}
             cost_t, _ = static_cost_function(Y_t, X_t, *args, **kwargs, **static_cost_kwargs)
             cost += cost_t
-        return cost
+            cost_ts.append(cost_t)
+        return cost, cost_ts
 
     def grid_search(
         self, Xs, param_grid, inclusions = None, eval_functions = None, 
@@ -206,7 +210,7 @@ class EvoMap():
         if kwargs is None:
             kwargs = {}
 
-        kwargs['Xs'] = Xs
+        kwargs['D_t'] = Xs
         if eval_labels is None:
             eval_labels = ['Metric_' + str(i+1) for i in range(len(eval_functions))]
 
@@ -333,6 +337,7 @@ def _evomap_cost_function(
     n_samples = Ds[0].shape[0]
     n_dims = Y_all_periods.shape[1]
 
+
 #    for t in range(n_periods):
 #        Y_t = Y_all_periods[(t*n_samples):((t+1)*n_samples), :]
 
@@ -351,6 +356,8 @@ def _evomap_cost_function(
             else:
                 D_t = Ds[t]
 
+            if static_cost_kwargs is None:
+                static_cost_kwargs = {}
             cost_t, _ = static_cost_function(Y_t, D_t, *args, **kwargs, **static_cost_kwargs)
             cost += cost_t
 
@@ -368,6 +375,7 @@ def _evomap_cost_function(
         kwargs.update({'compute_grad': True, 'compute_error': False})
         for t in range(n_periods):
             Y_t = _get_positions_for_period(Y_all_periods, n_samples, t)
+
             # If necessary, drop exluded observations
             full_grad_t = np.zeros_like(Y_t)
             if not inclusions is None:
@@ -376,7 +384,12 @@ def _evomap_cost_function(
                 _, grad_t = static_cost_function(Y_t, D_t, *args, **kwargs, **static_cost_kwargs)
                 full_grad_t[inclusions[t]==1, :] = grad_t
             else:
+                D_t = Ds[t]  
+
                 _, full_grad_t = static_cost_function(Y_t, D_t, *args, **kwargs, **static_cost_kwargs)
+
+
+
 
             # Stack gradients for each period below each other
             grad[(t*n_samples):((t+1)*n_samples), :] = full_grad_t
@@ -386,7 +399,7 @@ def _evomap_cost_function(
 
     else:
         grad = None
-    
+
     return cost, grad
 
 @jit(nopython=True)

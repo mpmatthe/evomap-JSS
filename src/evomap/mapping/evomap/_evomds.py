@@ -122,7 +122,7 @@ class EvoMDS(EvoMap):
                     Ys.append(_get_positions_for_period(Y, n_samples, t))
                 self.Ys_ = Ys
                 self.cost_ = cost
-                self.cost_static_ = super()._calc_static_cost(
+                self.cost_static_, self.costs_static_ = super()._calc_static_cost(
                     Xs = Ds, 
                     Y_all_periods= Y, 
                     inclusions = inclusions, 

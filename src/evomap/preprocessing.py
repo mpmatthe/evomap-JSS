@@ -164,6 +164,7 @@ def edgelist2matrices(df, score_var, id_var_i, id_var_j, time_var):
     ids_t: ndarray of shape (n_samles, )
         Identifiers for each element of the matrix.
     """
+    df = df.sort_values(by = time_var)
     periods = df[time_var].unique()
     S_t = []
     ids_t = []

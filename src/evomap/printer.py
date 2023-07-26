@@ -71,6 +71,7 @@ def init_params(custom_params = None):
     if not custom_params is None:
         mpl.rcParams.update(custom_params)
 
+#TODO: Show grid without axes not working
 def style_axes(ax, show_axes, show_box, show_grid, axes_at_origin):
     """Style the axes of a map."""
 
@@ -165,13 +166,13 @@ def draw_map(X, label = None, color = None, size = None,
     if not highlighted_labels is None:
         # In case a single label is given, put it into a list
         if type(highlighted_labels) == str:
-            highlight_labels = [highlight_labels]
+            highlighted_labels = [highlighted_labels]
         if label is None:
             raise ValueError('Need to provide labels.')
         if not all(highlighted_label in label for highlighted_label in highlighted_labels):
             raise ValueError('All highlighted labels need to be contained in the labels array.')
     else:
-        highlight_labels = []
+        highlighted_labels = []
 
     # By default, rotate labels for 1D data
     if X.shape[1] == 1 and rotate_labels == 0:
@@ -281,31 +282,30 @@ def draw_map(X, label = None, color = None, size = None,
                 's': df_data_this['size']}
                 )
 
-        if show_legend:
-            scatter_kws.update({
-                'label': df_data_this['cluster_label'].iloc[0],
-            })
+        scatter_kws.update({
+            'label': df_data_this['cluster_label'].iloc[0],
+        })
         ax.scatter(df_data_this.x,df_data_this.y, **scatter_kws) 
         
     if fontdict is None:
         fontdict = text_fontdict.copy()
 
     # Add highlights
-    if len(highlight_labels) > 0:
+    if len(highlighted_labels) > 0:
         fontdict.update({'size': fontdict['size']*0.8})
         highlighted_fontdict = fontdict.copy()
         highlighted_fontdict.update({'weight': 'bold', 'size': fontdict['size']*1.2})
     
     # Only print highlighted labels
-    if len(highlight_labels) > 0:
+    if len(highlighted_labels) > 0:
         for i in range(len(df_data)):
-            if label[i] in highlight_labels:
+            if label[i] in highlighted_labels:
                 ax.text(
                     df_data['x'].iloc[i], 
                     df_data['y'].iloc[i], 
                     df_data['label'].iloc[i], 
                     alpha = 1,
-                    rotatation = rotate_labels, 
+                    rotation = rotate_labels, 
                     fontdict = highlighted_fontdict)
             else:
                 continue
@@ -336,7 +336,6 @@ def draw_map(X, label = None, color = None, size = None,
     if not filename is None:
         mydpi = 300
         fig.savefig(filename, dpi = mydpi, format = 'png')
-
     plt.close()
     if return_fig:
         return fig
@@ -491,7 +490,7 @@ def draw_map_sequence(X_t, color_t = None, incl_t = None, n_cols = 4, time_label
         if not incl_t is None:
             draw_map_kws.update({'inclusions': incl_t[t]})
 
-        draw_map(**draw_map_kws)            
+        _ = draw_map(**draw_map_kws)            
         if not incl_t is None:            
             ymin_i, ymax_i = np.min(X_t[t][incl_t[t] == 1, 1]), np.max(X_t[t][incl_t[t] == 1, 1])
             xmin_i, xmax_i = np.min(X_t[t][incl_t[t] == 1, 0]), np.max(X_t[t][incl_t[t] == 1, 0])
@@ -624,7 +623,7 @@ def fit_attributes(map_coords, df_attributes, map):
             map = map)
     return map
 
-def draw_dynamic_map(X_t, color_t = None, incl_t = None, show_arrows = False, 
+def draw_dynamic_map(X_t, color_t = None, size_t = None, incl_t = None, show_arrows = False, 
     show_last_positions_only = False, time_labels = None, 
     transparency_start = 0.1, transparency_end = 0.4, transparency_final = 1.,**kwargs):
 
@@ -716,6 +715,9 @@ def draw_dynamic_map(X_t, color_t = None, incl_t = None, show_arrows = False,
             
         if not color_t is None:
             draw_map_kws.update({'color' : color_t[t]})
+
+        if not size_t is None:
+            draw_map_kws.update({'size' : size_t[t]})
 
         if t < n_periods-1:
             draw_map_kws.update({'label': None})
