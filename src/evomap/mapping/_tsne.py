@@ -27,7 +27,7 @@ class TSNE():
         init = None, 
         verbose = 0, 
         input_type = 'distance', 
-        maxhalves = 5, 
+        max_halves = 5, 
         tol = 1e-3,  
         n_inits = 1, 
         step_size = 1
@@ -45,7 +45,7 @@ class TSNE():
         self.init = init
         self.verbose = verbose
         self.input_type = input_type
-        self.maxhalves = maxhalves
+        self.max_halves = max_halves
         self.tol = tol
         self.n_inits = n_inits
         self.step_size = step_size

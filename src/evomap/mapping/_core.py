@@ -19,7 +19,7 @@ def gradient_descent_line_search(
     init,
     n_iter,
     n_iter_check = 50,
-    maxhalves = 10,
+    max_halves = 10,
     step_size = 1,
     min_grad_norm = 1e-7,
     verbose = 0,
@@ -43,7 +43,7 @@ def gradient_descent_line_search(
         Total number of gradient descent iterations.
     n_iter_check : int, optional
         Interval in which cost values are reported, by default 1
-    maxhalves : int, optional
+    max_halves : int, optional
         Maximum number of halving steps in line search, by default 10
     step_size : int, optional
         Initial step size, by default 1
@@ -94,7 +94,7 @@ def gradient_descent_line_search(
             raise DivergingGradientError()
         Y_old = Y
         step_size = init_step_size
-        for j in range(maxhalves):
+        for j in range(max_halves):
             Y = Y_old - (step_size * grad)
             
             kwargs["compute_grad"] = False

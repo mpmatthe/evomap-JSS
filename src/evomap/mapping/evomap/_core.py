@@ -263,6 +263,8 @@ class EvoMap():
             df_res = pd.concat([df_res, df_i],ignore_index = True, axis = 0)
 
         df_res.reset_index()
+        df_res.set_index('alpha', inplace = True)
+
         if model.verbose > 0:
                 print("[{0}] Grid Search Completed.".format(model.method_str))
 

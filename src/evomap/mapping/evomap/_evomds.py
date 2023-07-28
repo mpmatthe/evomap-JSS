@@ -22,7 +22,7 @@ class EvoMDS(EvoMap):
         mds_type = 'absolute',
         verbose = 0, 
         input_type = 'distance', 
-        maxhalves = 5, 
+        max_halves = 5, 
         tol = 1e-3,  
         n_inits = 1, 
         step_size = 1,
@@ -37,7 +37,7 @@ class EvoMDS(EvoMap):
         self.verbose = verbose
         self.mds_type = mds_type
         self.input_type = input_type
-        self.maxhalves = maxhalves
+        self.max_halves = max_halves
         self.tol = tol
         self.n_inits = n_inits
         self.step_size = step_size
@@ -90,7 +90,7 @@ class EvoMDS(EvoMap):
                 'n_iter': self.n_iter,
                 'n_iter_check': self.n_iter_check,
                 'step_size': self.step_size,
-                'maxhalves': self.maxhalves,
+                'max_halves': self.max_halves,
                 'min_grad_norm': self.tol,
                 'verbose': self.verbose,
                 'kwargs': {

@@ -390,7 +390,7 @@ def draw_shepard_diagram(X, D, ax = None, show_grid = False, show_rank_correlati
 
     from matplotlib.ticker import FuncFormatter
 
-
+    #TODO: Check if style_axes function can replace this part
 
     if ax is None:
         fig, ax = plt.subplots(figsize = (5,5))
@@ -408,12 +408,12 @@ def draw_shepard_diagram(X, D, ax = None, show_grid = False, show_rank_correlati
     x_max += 0.1 * (x_max - x_min)
     ax.set_ylim(y_min, y_max)
     ax.set_xlim(x_min, x_max)
-    y_ticks = np.linspace(y_min, y_max, 7)
-    x_ticks = np.linspace(x_min, x_max, 7)
+    y_ticks = np.linspace(y_min, y_max, 5)
+    x_ticks = np.linspace(x_min, x_max, 5)
 
     ax.set_yticks(y_ticks)
     ax.set_xticks(x_ticks)
-    ax.tick_params(axis = 'both', labelsize = 8)
+    ax.tick_params(axis = 'both', labelsize = 10)
     ax.xaxis.set_major_formatter(FuncFormatter(format_tick_labels))
     ax.yaxis.set_major_formatter(FuncFormatter(format_tick_labels))
 
@@ -558,6 +558,7 @@ def draw_map_sequence(X_t, color_t = None, incl_t = None, n_cols = 4, time_label
             row += 1
             col = 0
     
+    plt.close() #Prevent jupyter notebooks from displaying empty figures
     return fig
     
 def fit_attribute(coords, attribute_label, attribute_values, map):
