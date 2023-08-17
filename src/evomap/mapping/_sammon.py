@@ -7,7 +7,7 @@ Sammon, J. W. (1969). A nonlinear mapping for data structure analysis. IEEE Tran
 import numpy as np
 from scipy.spatial.distance import cdist
 from numba import jit
-from ._core import gradient_descent_line_search
+from ._optim import gradient_descent_line_search
 
 class Sammon():
 

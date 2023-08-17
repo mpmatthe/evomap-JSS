@@ -7,7 +7,7 @@ from scipy.spatial.distance import cdist
 from numba import jit
 from ._core import EvoMap
 from ._core import _evomap_cost_function, _get_positions_for_period
-from evomap.mapping._core import DivergingGradientError
+from evomap.mapping._optim import DivergingGradientError
 
 class EvoTSNE(EvoMap):
 
@@ -57,7 +57,7 @@ class EvoTSNE(EvoMap):
         return self
 
     def fit_transform(self, Xs):
-        from evomap.mapping._core import gradient_descent_with_momentum
+        from evomap.mapping._optim import gradient_descent_with_momentum
         from evomap.mapping._tsne import _kl_divergence, _check_prepare_tsne
 
         super()._validate_input(Xs)

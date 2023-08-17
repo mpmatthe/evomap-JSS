@@ -7,7 +7,7 @@ Van der Maaten, L., & Hinton, G. (2008). Visualizing data using t-SNE. Journal o
 import numpy as np
 from scipy.spatial.distance import cdist
 from numba import jit
-from ._core import gradient_descent_with_momentum
+from ._optim import gradient_descent_with_momentum
 
 EPSILON = 1e-12
 
