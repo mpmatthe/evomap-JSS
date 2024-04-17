@@ -15,10 +15,10 @@ from cycler import cycler
 DEFAULT_BUBBLE_SIZE = 25
 DEFAULT_FONT_SIZE = 10
 
-title_fontdict_large = {'size': 14, 'family': 'Arial'}
-title_fontdict = {'size': 14, 'family': 'Arial'}
-text_fontdict = {'size': 10, 'family': 'Arial'}
-axis_label_fontdict = {'size': 12, 'family': 'Arial'}
+title_fontdict_large = {'size': 20, 'family': 'Arial'}
+title_fontdict = {'size': 18, 'family': 'Arial'}
+text_fontdict = {'size': 14, 'family': 'Arial'}
+axis_label_fontdict = {'size': 16, 'family': 'Arial'}
 
 def format_tick_labels(x, pos):
     return '{0:.2f}'.format(x)
@@ -626,7 +626,7 @@ def fit_attributes(map_coords, df_attributes, map):
 
 def draw_dynamic_map(X_t, color_t = None, size_t = None, incl_t = None, show_arrows = False, 
     show_last_positions_only = False, time_labels = None, 
-    transparency_start = 0.1, transparency_end = 0.4, transparency_final = 1.,**kwargs):
+    transparency_start = 0.4, transparency_end = 0.8, transparency_final = 1.,**kwargs):
 
     # Check inputs
     n_periods = len(X_t)
