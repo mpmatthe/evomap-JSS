@@ -1,24 +1,24 @@
 # Fdb version 4
-["bibtex article"] 1713312936 "article.aux" "article.bbl" "article" 1713314509 0
+["bibtex article"] 1713314544 "article.aux" "article.bbl" "article" 1713395460 0
   "./jss.bst" 1631345509 32989 20bb38cc9c684ce32025a8fa283a9df6 ""
-  "./refs.bib" 1709076272 11375 5a37098e785bfedd8739ac265c50cba9 ""
-  "article.aux" 1713314508 8397 d02d6f98a4b22c2f0f04be1cc37b11e2 "pdflatex"
+  "./refs.bib" 1713314544 11420 5d9eca18b4347e595ae227e5a135e10f ""
+  "article.aux" 1713395408 8397 d02d6f98a4b22c2f0f04be1cc37b11e2 "pdflatex"
   (generated)
   "article.bbl"
   "article.blg"
   (rewritten before read)
-["pdflatex"] 1713314460 "/Users/mpmatthe/Dropbox (Personal)/Promotion/Research-Projects/Projects/02-Single-Author/Code/paper/article.tex" "article.pdf" "article" 1713314509 0
+["pdflatex"] 1713395408 "/Users/mpmatthe/Dropbox (Personal)/Promotion/Research-Projects/Projects/02-Single-Author/Code/paper/article.tex" "article.pdf" "article" 1713395460 0
   "../gen/Fig10_unbalanced.png" 1709072742 1557444 e4ebd0a85e6e90e858d4c9e1ec2db1f1 ""
-  "../gen/Fig1_static_mapping.png" 1709073229 2029867 9088f9c107c711c48cb64aa337864c71 ""
-  "../gen/Fig2_dynamic_mapping.PNG" 1709073247 2387641 91a63e179a171a7a68d1c069b5cf6848 ""
-  "../gen/Fig3_dynamic_map.PNG" 1709073260 1571978 f2c41b3a0593b6d210c6666553ce0e17 ""
-  "../gen/Fig5_hyperparamters.png" 1709073318 14032898 a6d228d01c9c8f93c97ea9b93e8ac124 ""
-  "../gen/Fig6_static_snapshots.png" 1709073351 1945386 3f74d21163e9b48f0ca3cc48bb108cc3 ""
-  "../gen/Fig7_draw_map_illustrations.png" 1709073354 1455758 f17ce3cb6b62cf022f378aff49609e53 ""
-  "../gen/Fig8_dynamic_map_and_trajectories.png" 1709073358 4550974 513ec6a305276b81383945ad3f0a0d33 ""
+  "../gen/Fig1_static_mapping.png" 1713395241 2029867 9088f9c107c711c48cb64aa337864c71 ""
+  "../gen/Fig2_dynamic_mapping.PNG" 1713395257 2387641 91a63e179a171a7a68d1c069b5cf6848 ""
+  "../gen/Fig3_dynamic_map.PNG" 1713395271 1571978 f2c41b3a0593b6d210c6666553ce0e17 ""
+  "../gen/Fig5_hyperparamters.png" 1713395328 14032898 a6d228d01c9c8f93c97ea9b93e8ac124 ""
+  "../gen/Fig6_static_snapshots.png" 1713395359 1945386 3f74d21163e9b48f0ca3cc48bb108cc3 ""
+  "../gen/Fig7_draw_map_illustrations.png" 1713395362 1455758 f17ce3cb6b62cf022f378aff49609e53 ""
+  "../gen/Fig8_dynamic_map_and_trajectories.png" 1713395367 4550974 513ec6a305276b81383945ad3f0a0d33 ""
   "../gen/Fig9_grid_search.png" 1709073029 2089345 483c3536bb8d0fac1652124dd58b7fe4 ""
   "../misc/package-design.png" 1700513003 175786 22a55310f1948df9eca0b7b6f634aae5 ""
-  "/Users/mpmatthe/Dropbox (Personal)/Promotion/Research-Projects/Projects/02-Single-Author/Code/paper/article.tex" 1713314460 54725 0830032875b3d942b0dd82c6bf831645 ""
+  "/Users/mpmatthe/Dropbox (Personal)/Promotion/Research-Projects/Projects/02-Single-Author/Code/paper/article.tex" 1713314601 54725 0830032875b3d942b0dd82c6bf831645 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1254269338 2375 baa924870cfb487815765f9094cf3728 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc" 1202520719 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
@@ -250,10 +250,10 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1700489778 4623355 b8cad38412faebe1ce5b780a45db67bd ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1700489753 7883458 7da6bfc1397c1e6a62ca4e86af23d030 ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
-  "article.aux" 1713314508 8397 d02d6f98a4b22c2f0f04be1cc37b11e2 "pdflatex"
-  "article.bbl" 1713312936 10895 0de28a70da0ecec662344cd85c1c3582 "bibtex article"
-  "article.out" 1713314508 4604 8d13a54e5437b2e08e2d47b0b391df0b "pdflatex"
-  "article.tex" 1713314460 54725 0830032875b3d942b0dd82c6bf831645 ""
+  "article.aux" 1713395408 8397 d02d6f98a4b22c2f0f04be1cc37b11e2 "pdflatex"
+  "article.bbl" 1713314544 10955 14db1e3e5b480a06fd986544f6ef2753 "bibtex article"
+  "article.out" 1713395459 4604 8d13a54e5437b2e08e2d47b0b391df0b "pdflatex"
+  "article.tex" 1713314601 54725 0830032875b3d942b0dd82c6bf831645 ""
   "jss.cls" 1631345509 14944 db7d8a9d305f6a2d1918636f010c1a18 ""
   "jsslogo.jpg" 1616433274 22731 b9564ddd59a06782310989e8f33db55e ""
   (generated)
