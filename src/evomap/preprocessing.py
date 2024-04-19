@@ -111,15 +111,9 @@ def coocc2sim(coocc_mat):
     sim_mat = (sim_mat + sim_mat.T) / 2
 
     return sim_mat
-
-import numpy as np
-import pandas as pd
-from scipy.sparse import coo_matrix
-
 def edgelist2matrix(df, score_var, id_var_i, id_var_j, time_var=None, time_selected=None):
     """
     Transform an edgelist to a relationship matrix.
-
     Parameters
     ----------
     df : DataFrame
@@ -135,14 +129,12 @@ def edgelist2matrix(df, score_var, id_var_i, id_var_j, time_var=None, time_selec
         The time variable, by default None.
     time_selected : int, optional
         The selected time, by default None.
-
     Returns
     -------
     S: ndarray of shape (n_samples, n_samples)
         A matrix of pairwise relationships.
     ids: ndarray
         Identifiers for each element of the matrix.
-
     Raises
     ------
     ValueError:
@@ -162,7 +154,7 @@ def edgelist2matrix(df, score_var, id_var_i, id_var_j, time_var=None, time_selec
             raise ValueError(f"No data found for selected time: {time_selected}")
 
     # Get unique identifiers and create a mapping index
-    unique_ids = pd.unique(df[[id_var_i, id_var_j]].values.ravel('K'))
+    unique_ids = np.unique(np.concatenate([df[id_var_i], df[id_var_j]], axis = 0))
     id_index = {id_val: idx for idx, id_val in enumerate(unique_ids)}
 
     # Prepare the matrix
@@ -178,9 +170,6 @@ def edgelist2matrix(df, score_var, id_var_i, id_var_j, time_var=None, time_selec
     S = (S + S.T) / 2
 
     return S, unique_ids
-
-import numpy as np
-import pandas as pd
 
 def edgelist2matrices(df, score_var, id_var_i, id_var_j, time_var):
     """
