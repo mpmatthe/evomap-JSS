@@ -41,9 +41,10 @@ def init_params(custom_params=None):
         "axes.linewidth": 1,
         "axes.titlesize": 22,
         "axes.labelsize": 16,
+        "font.family": 'Arial',
         "axes.edgecolor": "black",
-        "xtick.labelsize": 14,
-        "ytick.labelsize": 14,
+        "xtick.labelsize": 12,
+        "ytick.labelsize": 12,
         "xtick.major.size": 0.2,
         "xtick.minor.size": 0.1,
         "ytick.major.size": 0.2,
@@ -64,43 +65,132 @@ def init_params(custom_params=None):
 
     mpl.rcParams.update(base_style)
 
-def style_axes(ax, show_axes=True, show_box=True, show_grid=False, axes_at_origin=False,
-               xlim=(-1, 1), ylim=(-1, 1)):
+
+def style_axes(ax, show_axes=True, show_box=True, show_grid=False, axes_at_origin=False):
     """
-    Style the axes of a plot with options to show or hide grid, box, and axes, set axes limits,
-    and align axes at origin.
+    Style axes of a matplotlib Axes object according to the specified options.
+
+    Parameters
+    ----------
+    ax : matplotlib.axes.Axes
+        The axes object to apply styling to.
+    show_axes : bool, optional
+        If True, display the axes lines and labels; otherwise, hide them. Default is True.
+    show_box : bool, optional
+        If True, display the bounding box (spines) around the plot. If False, hide the top and right spines.
+        The visibility of left and bottom spines is controlled by `show_axes`. Default is True.
+    show_grid : bool, optional
+        If True, display grid lines on the plot. Grid lines are only displayed if `show_axes` is also True.
+        Default is False.
+    axes_at_origin : bool, optional
+        If True, move the 'left' and 'bottom' axes to intersect at the origin (0,0) point. This setting overrides
+        the visibility settings for 'top' and 'right' spines, setting them to False regardless of `show_box`.
+        Default is False.
+
     """
-    ax.set_ylabel("Dimension 2", fontdict=axis_label_fontdict)
-    ax.set_xlabel("Dimension 1", fontdict=axis_label_fontdict)
+    # Handling the visibility of the axis lines and labels
+    ax.xaxis.set_visible(show_axes)
+    ax.yaxis.set_visible(show_axes)
 
-    ax.grid(show_grid)
+    # Handling grid lines
+    ax.grid(show_grid and show_axes)  # Grid only if show_axes is True and show_grid is requested
 
-    # Set limits
-    ax.set_xlim(xlim)
-    ax.set_ylim(ylim)
+    # Adjusting axis spines (the box)
+    if show_box:
+        # Ensuring all spines are visible
+        for spine in ax.spines.values():
+            spine.set_visible(True)
+    else:
+        # Setting spines visibility based on axes visibility when the box isn't requested
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        ax.spines['left'].set_visible(show_axes)
+        ax.spines['bottom'].set_visible(show_axes)
 
-    if axes_at_origin:
-        # Set the axes to origin
+    # Positioning axes at the origin
+    if axes_at_origin and show_axes:
+        # Move axes to zero point
         ax.spines['left'].set_position('zero')
         ax.spines['bottom'].set_position('zero')
-        ax.spines['right'].set_color('none')
-        ax.spines['top'].set_color('none')
-        ax.xaxis.set_ticks_position('bottom')
-        ax.yaxis.set_ticks_position('left')
+        ax.spines['right'].set_visible(False)
+        ax.spines['top'].set_visible(False)
+    elif not axes_at_origin:
+        # Reset spines to default positions
+        ax.spines['left'].set_position(('outward', 0))
+        ax.spines['bottom'].set_position(('outward', 0))
 
-    if not show_axes:
-        ax.xaxis.set_visible(False)
-        ax.yaxis.set_visible(False)
-    else:
-        ax.xaxis.set_visible(True)
-        ax.yaxis.set_visible(True)
+    # Setting labels
+    ax.set_xlabel("Dimension 1" if show_axes else "")
+    ax.set_ylabel("Dimension 2" if show_axes else "")
 
-    ax.set_frame_on(show_box)
+    # Ensure ticks are shown only when axes are visible
+    ax.tick_params(axis='x', which='both', bottom=show_axes, labelbottom=show_axes)
+    ax.tick_params(axis='y', which='both', left=show_axes, labelleft=show_axes)
+
+    # Setting default limits if no axes or box are shown to prevent zooming effect
+    if not show_axes and not show_box:
+        ax.set_xlim(-1, 1)
+        ax.set_ylim(-1, 1)
+
+
 
 def draw_map(X, label=None, color=None, size=None, inclusions=None, zoom_on_cluster=None, highlighted_labels=None, 
              show_box=True, show_grid=False, show_axes=False, axes_at_origin=False, show_legend=False,
              cmap=None, filename=None, ax=None, fig_size=None, 
              title=None, rotate_labels=0, scatter_kws={}, fontdict=None, rcparams=None):
+    """
+    Plot a scatter map with optional labels, coloring, and sizing.
+
+    Parameters
+    ----------
+    X : array-like of shape (n_samples, n_features)
+        Data points to plot. n_features should be 1 or 2.
+    label : array-like, optional
+        Labels for each data point.
+    color : array-like, optional
+        Colors or group identifiers for each data point. If None, all points will have the same color.
+    size : array-like, optional
+        Sizes for each data point. If None, a default size is used.
+    inclusions : array-like of bool, optional
+        Boolean array to select which points are included in the plot.
+    zoom_on_cluster : int or string, optional
+        Cluster identifier to zoom in on specific cluster data points.
+    highlighted_labels : list, optional
+        Labels to be highlighted on the plot.
+    show_box : bool, optional
+        If True, show a box around the plot. Default is True.
+    show_grid : bool, optional
+        If True, show grid lines on the plot. Default is False.
+    show_axes : bool, optional
+        If True, show the axes of the plot. Default is False.
+    axes_at_origin : bool, optional
+        If True, draw axes lines through the origin. Default is False.
+    show_legend : bool, optional
+        If True, display a legend on the plot. Default is False.
+    cmap : str or Colormap, optional
+        Colormap to use for coloring the points. If None, a default colormap is used.
+    filename : str, optional
+        Path to save the figure file. If None, the figure is not saved.
+    ax : matplotlib.axes.Axes, optional
+        Pre-existing axes for the plot. If None, a new figure and axes are created.
+    fig_size : tuple, optional
+        Size of the figure to create. Ignored if `ax` is not None.
+    title : str, optional
+        Title of the plot.
+    rotate_labels : int, optional
+        Angle to rotate the labels. Default is 0.
+    scatter_kws : dict, optional
+        Additional keyword arguments to pass to the scatter plot function.
+    fontdict : dict, optional
+        Font dictionary for the labels. If None, a default fontdict is used.
+    rcparams : dict, optional
+        Dictionary to update matplotlib's rcParams for customizing plots.
+
+    Returns
+    -------
+    matplotlib.figure.Figure
+        Only if `ax` is None, the figure containing the plot is returned.
+    """
 
     n_samples = len(X)
     X = np.atleast_2d(X)  # Ensure X is at least 2D
@@ -265,6 +355,39 @@ def plot_period_data(ax, X, incl, transparencies, draw_map_kws, plot_args):
 def draw_dynamic_map(X_t, color_t=None, size_t=None, incl_t=None, show_arrows=False, 
                      show_last_positions_only=False, time_labels=None, transparency_start=0.4, 
                      transparency_end=0.8, transparency_final=1., **kwargs):
+    """
+    Visualizes dynamic map data over multiple periods with options to show movement paths and adjust visual features.
+
+    Parameters
+    ----------
+    X_t : list of ndarray
+        List of arrays containing coordinates for each period, where each array is of shape (n_samples, n_features).
+    color_t : list of ndarray, optional
+        List of arrays containing color or group identifiers for each period.
+    size_t : list of ndarray, optional
+        List of arrays containing sizes for each data point in each period.
+    incl_t : list of ndarray, optional
+        List of arrays indicating if a point should be included in the plot for each period.
+    show_arrows : bool, optional
+        If True, display arrows showing movement between periods. Default is False.
+    show_last_positions_only : bool, optional
+        If True, only the last period's positions are shown with arrows indicating the movements from prior periods. Default is False.
+    time_labels : list of str, optional
+        Labels for each period, displayed in plot annotations or titles.
+    transparency_start : float, optional
+        Starting transparency level for the first period in the dynamic map.
+    transparency_end : float, optional
+        Ending transparency level just before the last period in the dynamic map.
+    transparency_final : float, optional
+        Transparency level for the last period in the dynamic map.
+    **kwargs : dict
+        Additional keyword arguments to pass to the plotting function or for configuring plot aspects.
+
+    Returns
+    -------
+    matplotlib.figure.Figure
+        The figure containing the dynamic map, only if not plotted on an existing axis.
+    """
 
     n_periods = len(X_t)
     n_samples = X_t[0].shape[0]
@@ -293,7 +416,6 @@ def draw_dynamic_map(X_t, color_t=None, size_t=None, incl_t=None, show_arrows=Fa
     if return_fig:
         return fig
 
-
 def plot_movement_paths(ax, X_prev, X_curr, incl_prev, incl_curr, alpha):
     """ Plot movement paths between periods. """
     for i in range(len(X_curr)):
@@ -301,7 +423,7 @@ def plot_movement_paths(ax, X_prev, X_curr, incl_prev, incl_curr, alpha):
             start_point = X_prev[i]
             end_point = X_curr[i]
             if np.any(start_point != end_point):
-                ax.arrow(*start_point, *(end_point - start_point), color='grey', alpha=alpha, linestyle='--', linewidth=1)
+                ax.arrow(*start_point, *(end_point - start_point), color='grey', alpha=alpha, linestyle='-', linewidth=1)
 
 
 def draw_trajectories(Y_ts, labels, selected_labels = None, title = None, 
