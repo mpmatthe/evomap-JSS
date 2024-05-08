@@ -310,7 +310,12 @@ def expand_matrices(X_ts, labels_ts):
     Returns:
         tuple: Contains a list of expanded similarity matrices, inclusion vectors, and all labels.
     """
-    all_labels = sorted(set(label for labels in labels_ts for label in labels))
+    all_labels = [[label for label in names] for names in labels_ts]
+    all_labels = [item for sublist in all_labels for item in sublist]
+    seen = set()
+    seen_add = seen.add
+    all_labels = [label for label in all_labels if not (label in seen or seen_add(label))]
+    
     expanded_matrices = []
     inclusion_vectors = []
 
@@ -318,7 +323,7 @@ def expand_matrices(X_ts, labels_ts):
         full_matrix = pd.DataFrame(0, index=all_labels, columns=all_labels)
         matrix_df = pd.DataFrame(X, index=labels, columns=labels)
         full_matrix.update(matrix_df)
-        inclusion_vector = [label in labels for label in all_labels]
+        inclusion_vector = np.array([int(label in labels) for label in all_labels])
 
         expanded_matrices.append(full_matrix.values)
         inclusion_vectors.append(inclusion_vector)

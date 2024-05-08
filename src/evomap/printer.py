@@ -18,14 +18,15 @@ from sklearn.isotonic import IsotonicRegression
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FuncFormatter
 from cycler import cycler
+import warnings
 
-DEFAULT_BUBBLE_SIZE = 25
-DEFAULT_FONT_SIZE = 10
+DEFAULT_BUBBLE_SIZE = 50
+DEFAULT_FONT_SIZE = 12
 
 title_fontdict_large = {'size': 20, 'family': 'Arial'}
 title_fontdict = {'size': 18, 'family': 'Arial'}
-text_fontdict = {'size': 14, 'family': 'Arial'}
-axis_label_fontdict = {'size': 16, 'family': 'Arial'}
+text_fontdict = {'size': DEFAULT_FONT_SIZE, 'family': 'Arial'}
+axis_label_fontdict = {'size': 12, 'family': 'Arial'}
 
 def format_tick_labels(x, pos):
     return '{0:.2f}'.format(x)
@@ -67,75 +68,44 @@ def init_params(custom_params=None):
 
 
 def style_axes(ax, show_axes=True, show_box=True, show_grid=False, axes_at_origin=False):
-    """
-    Style axes of a matplotlib Axes object according to the specified options.
-
-    Parameters
-    ----------
-    ax : matplotlib.axes.Axes
-        The axes object to apply styling to.
-    show_axes : bool, optional
-        If True, display the axes lines and labels; otherwise, hide them. Default is True.
-    show_box : bool, optional
-        If True, display the bounding box (spines) around the plot. If False, hide the top and right spines.
-        The visibility of left and bottom spines is controlled by `show_axes`. Default is True.
-    show_grid : bool, optional
-        If True, display grid lines on the plot. Grid lines are only displayed if `show_axes` is also True.
-        Default is False.
-    axes_at_origin : bool, optional
-        If True, move the 'left' and 'bottom' axes to intersect at the origin (0,0) point. This setting overrides
-        the visibility settings for 'top' and 'right' spines, setting them to False regardless of `show_box`.
-        Default is False.
-
-    """
-    # Handling the visibility of the axis lines and labels
     ax.xaxis.set_visible(show_axes)
     ax.yaxis.set_visible(show_axes)
 
-    # Handling grid lines
-    ax.grid(show_grid and show_axes)  # Grid only if show_axes is True and show_grid is requested
+    ax.grid(show_grid and show_axes)
 
-    # Adjusting axis spines (the box)
     if show_box:
-        # Ensuring all spines are visible
         for spine in ax.spines.values():
             spine.set_visible(True)
     else:
-        # Setting spines visibility based on axes visibility when the box isn't requested
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
         ax.spines['left'].set_visible(show_axes)
         ax.spines['bottom'].set_visible(show_axes)
 
-    # Positioning axes at the origin
     if axes_at_origin and show_axes:
-        # Move axes to zero point
         ax.spines['left'].set_position('zero')
         ax.spines['bottom'].set_position('zero')
         ax.spines['right'].set_visible(False)
         ax.spines['top'].set_visible(False)
     elif not axes_at_origin:
-        # Reset spines to default positions
         ax.spines['left'].set_position(('outward', 0))
         ax.spines['bottom'].set_position(('outward', 0))
 
     # Setting labels
-    ax.set_xlabel("Dimension 1" if show_axes else "")
-    ax.set_ylabel("Dimension 2" if show_axes else "")
+    if show_axes:
+        ax.set_xlabel("Dimension 1", fontdict = axis_label_fontdict)
+        ax.set_ylabel("Dimension 2", fontdict = axis_label_fontdict)
 
-    # Ensure ticks are shown only when axes are visible
     ax.tick_params(axis='x', which='both', bottom=show_axes, labelbottom=show_axes)
     ax.tick_params(axis='y', which='both', left=show_axes, labelleft=show_axes)
 
-    # Setting default limits if no axes or box are shown to prevent zooming effect
-    if not show_axes and not show_box:
-        ax.set_xlim(-1, 1)
-        ax.set_ylim(-1, 1)
+    ax.set_xlim(-1, 1)
+    ax.set_ylim(-1, 1)
 
 
 
 def draw_map(X, label=None, color=None, size=None, inclusions=None, zoom_on_cluster=None, highlighted_labels=None, 
-             show_box=True, show_grid=False, show_axes=False, axes_at_origin=False, show_legend=False,
+             show_box=True, show_grid=False, show_axes=True, axes_at_origin=False, show_legend=False,
              cmap=None, filename=None, ax=None, fig_size=None, 
              title=None, rotate_labels=0, scatter_kws={}, fontdict=None, rcparams=None):
     """
@@ -191,19 +161,26 @@ def draw_map(X, label=None, color=None, size=None, inclusions=None, zoom_on_clus
     matplotlib.figure.Figure
         Only if `ax` is None, the figure containing the plot is returned.
     """
-
     n_samples = len(X)
-    X = np.atleast_2d(X)  # Ensure X is at least 2D
+    X = np.atleast_2d(X)
     if X.shape[1] == 1:
-        X = np.hstack([X, np.zeros_like(X)])  # Handle 1D data by adding a dummy second dimension
+        X = np.hstack([X, np.zeros_like(X)])
 
-    if color is None:
-        color = np.zeros(n_samples)
-    color = np.asarray(color)
+    if cmap is None:
+        cmap = plt.get_cmap('tab10')
 
-    # Prepare dataframe for plotting
     df_data = pd.DataFrame(X, columns=['x', 'y'])
-    df_data['color'] = pd.Categorical(color)
+    if color is None:
+        df_data['color'] = [cmap(0)] * n_samples  # Use the first color in the colormap for all points
+    else:
+        color = np.asarray(color)
+        unique_colors = np.unique(color)
+        if len(unique_colors) > cmap.N:
+            warnings.warn("Number of color labels exceeds the number of available colors in the colormap; colors will repeat.")
+        color_indices = pd.Categorical(color, categories=unique_colors).codes
+        colors = cmap(color_indices % cmap.N)  # Use modulo to avoid index out of bounds
+        df_data['color'] = [colors[i] for i in range(len(color_indices))]  # Assign colors as a list of RGBA values
+
     if label is not None:
         df_data['label'] = label
     if size is not None:
@@ -217,35 +194,21 @@ def draw_map(X, label=None, color=None, size=None, inclusions=None, zoom_on_clus
     if zoom_on_cluster is not None:
         df_data = df_data[df_data['color'] == zoom_on_cluster]
 
-    # Handle colormap
-    unique_colors = df_data['color'].cat.categories
-    if cmap is None:
-        cmap = "tab10" if len(unique_colors) <= 10 else "tab20"
-    cmap = plt.get_cmap(cmap)
-    df_data['color'] = [cmap(i) for i in df_data['color'].cat.codes]
-
     init_params(rcparams)
 
-    # Setup plot
     if ax is None:
-        fig, ax = plt.subplots(figsize=fig_size or (5, 5))
+        fig, ax = plt.subplots(figsize=fig_size or (6,6))
         return_fig = True
     else:
         return_fig = False
 
-    # Plotting
     scatter_args = {'edgecolors': 'none', 'alpha': 0.6}
     scatter_args.update(scatter_kws)
-    for key, grp in df_data.groupby('color'):
-        ax.scatter(grp['x'], grp['y'], c=[key] * len(grp), s=grp['size'], **scatter_args)
+    ax.scatter(df_data['x'], df_data['y'], color=df_data['color'], s=df_data['size'], **scatter_args)
     
-    # Handling labels
-    fontdict = fontdict or text_fontdict.copy()
-    for _, row in df_data.iterrows():
-        if highlighted_labels and row['label'] in highlighted_labels:
-            ax.text(row['x'], row['y'], row['label'], fontdict={'weight': 'bold', **fontdict}, rotation=rotate_labels)
-        elif label is not None:
-            ax.text(row['x'], row['y'], row['label'], fontdict=fontdict, rotation=rotate_labels)
+    if label is not None:
+        for _, row in df_data.iterrows():
+            ax.text(row['x'], row['y'], row['label'], fontdict=fontdict or text_fontdict, rotation=rotate_labels)
 
     style_axes(ax, show_axes, show_box, show_grid, axes_at_origin)
 
@@ -255,13 +218,11 @@ def draw_map(X, label=None, color=None, size=None, inclusions=None, zoom_on_clus
     if show_legend:
         ax.legend(title='Cluster')
 
-    # Save or show plot
     if filename:
         plt.savefig(filename, dpi=300, format='png', bbox_inches='tight')
-    plt.close()
-
-    if return_fig:
-        return fig
+    
+    if not return_fig:
+        plt.close()
 
 def normalize_dhat(d_hat, n_samples):
     """ Normalize dissimilarity predictions. """
@@ -295,14 +256,14 @@ def draw_shepard_diagram(X, D, ax=None, show_grid=False, show_rank_correlation=T
     }).sort_values('Disparities')
 
     if ax is None:
-        fig, ax = plt.subplots(figsize=(5, 5))
+        fig, ax = plt.subplots(figsize=(6,6))
     
     # Plotting the original and fitted distances
-    ax.scatter(df['Disparities'], df['Distances'], color="blue", label="Original", alpha=0.6)
+    ax.scatter(df['Disparities'], df['Distances'], color="darkblue", label="Original", alpha=0.6)
     ax.plot(df['Disparities'], df['Fitted Distances'], color="orange", label="Fitted", marker='o', linestyle='-')
     
-    ax.set_xlabel('Input Dissimilarity', fontsize=16)
-    ax.set_ylabel('Map Distance', fontsize=16)
+    ax.set_xlabel('Input Dissimilarity', fontdict=axis_label_fontdict)
+    ax.set_ylabel('Map Distance', fontdict=axis_label_fontdict)
     ax.legend()
 
     if show_grid:
@@ -335,29 +296,14 @@ def prepare_transparencies(n_periods, start, end, final):
     """ Prepare transparency values for the plotting periods. """
     return np.linspace(start, end, n_periods-1).tolist() + [final]
 
-def setup_figure(ax, fig_size):
-    """ Setup or create figure and axes for plotting. """
-    if ax is None:
-        fig, ax = plt.subplots(figsize=fig_size)
-        return fig, ax, True
-    return None, ax, False
 
-def plot_period_data(ax, X, incl, transparencies, draw_map_kws, plot_args):
-    """ Plot data for each period. """
-    draw_map_kws.update({
-        'X': X, 
-        'inclusions': incl,
-        'scatter_kws': {'alpha': transparencies},
-        **plot_args  # Use spread operator to include all additional arguments
-    })
-    draw_map(**draw_map_kws)
-
-def draw_dynamic_map(X_t, color_t=None, size_t=None, incl_t=None, show_arrows=False, 
-                     show_last_positions_only=False, time_labels=None, transparency_start=0.4, 
-                     transparency_end=0.8, transparency_final=1., **kwargs):
+def draw_dynamic_map(X_t, color_t=None, size_t=None, incl_t=None, label = None, show_arrows=False,
+                     show_last_positions_only=False, time_labels=None, show_axes = True, show_box = True, 
+                     axes_at_origin = False, show_grid = False, cmap = None, transparency_start=0.4,
+                     transparency_end=0.6, transparency_final=.6, **kwargs):
     """
     Visualizes dynamic map data over multiple periods with options to show movement paths and adjust visual features.
-
+    
     Parameters
     ----------
     X_t : list of ndarray
@@ -391,40 +337,78 @@ def draw_dynamic_map(X_t, color_t=None, size_t=None, incl_t=None, show_arrows=Fa
 
     n_periods = len(X_t)
     n_samples = X_t[0].shape[0]
-    validate_inputs(X_t, color_t, incl_t, n_samples)
+    cmap = plt.get_cmap(cmap if cmap else 'tab10')
 
-    incl_t = [np.repeat(1, n_samples)]*n_periods if incl_t is None else incl_t
-    transparencies = prepare_transparencies(n_periods, transparency_start, transparency_end, transparency_final)
+    incl_t = [np.ones(n_samples, dtype=bool) if incl is None else incl for incl in incl_t] if incl_t else [np.ones(n_samples, dtype=bool)] * n_periods
 
-    fig, ax, return_fig = setup_figure(kwargs.get('ax'), kwargs.get('fig_size', (5,5)))
-    draw_map_kws = {k: v for k, v in kwargs.items() if k in draw_map.__code__.co_varnames}
+    ax = kwargs.get('ax')
+    if ax is None:
+        fig, ax = plt.subplots(figsize=kwargs.get('fig_size', (6,6)))
+        return_fig = True
+    else:
+        fig = ax.figure
+        return_fig = False
 
     for t in range(n_periods):
-        if not show_last_positions_only or t == n_periods - 1:
-            plot_args = {'title': None, 'highlighted_labels': None} if t < n_periods - 1 else kwargs
-            plot_period_data(ax, X_t[t], incl_t[t], transparencies[t], draw_map_kws, plot_args)
+        sizes = size_t[t] if size_t else np.full(n_samples, DEFAULT_BUBBLE_SIZE)
+        if color_t:
+            unique_colors = np.unique(color_t[t])
+            if len(unique_colors) > cmap.N:
+                warnings.warn("Number of color labels exceeds the number of available colors in the colormap; colors will repeat.")
+            color_indices = pd.Categorical(color_t[t], categories=unique_colors).codes
+            colors = cmap(color_indices % cmap.N)
+        else:
+            colors = np.array([cmap(0)] * n_samples)  # Default to the first color in the cmap
+
+        if t < n_periods-1:
+            if not show_last_positions_only: 
+                valid_indices = incl_t[t]
+                transparency = np.linspace(transparency_start, transparency_end, n_periods)[t] if not show_last_positions_only else transparency_final
+                ax.scatter(X_t[t][valid_indices, 0], X_t[t][valid_indices, 1], alpha=transparency, s=sizes[valid_indices], c=colors[valid_indices])
+
+        else:
+            valid_indices = incl_t[t]
+            transparency = np.linspace(transparency_start, transparency_end, n_periods)[t] if not show_last_positions_only else transparency_final
+            ax.scatter(X_t[t][valid_indices, 0], X_t[t][valid_indices, 1], alpha=transparency, s=sizes[valid_indices], c=colors[valid_indices])
 
         if show_arrows and t > 0:
-            plot_movement_paths(ax, X_t[t-1], X_t[t], incl_t[t-1], incl_t[t], transparencies[t-1])
+            for i in range(n_samples):
+                if incl_t[t][i] and incl_t[t-1][i]:
+                    start_point = X_t[t-1][i]
+                    end_point = X_t[t][i]
+                    if not np.array_equal(start_point, end_point):
+                        ax.plot([start_point[0], end_point[0]], [start_point[1], end_point[1]],
+                                color='gray', alpha=transparency_start, linewidth=1)
 
-    style_axes(ax, **{k: kwargs.get(k, True) for k in ['show_axes', 'show_box', 'show_grid', 'axes_at_origin']})
+        if label is not None and t == n_periods - 1:  # Check explicitly if label is not None
+            for i, txt in enumerate(label):
+                if valid_indices[i]:
+                    ax.text(X_t[t][i, 0], X_t[t][i, 1], txt, fontsize=DEFAULT_FONT_SIZE)
+
+    style_axes(ax, show_axes, show_box, show_grid, axes_at_origin)
+    ax.axis('equal')
 
     if 'filename' in kwargs:
-        plt.savefig(kwargs['filename'], dpi = 300, format = "png")
-    plt.close()
+        plt.savefig(kwargs['filename'], dpi=300)
 
-    if return_fig:
-        return fig
+    if not return_fig:
+        plt.close(fig)
 
-def plot_movement_paths(ax, X_prev, X_curr, incl_prev, incl_curr, alpha):
-    """ Plot movement paths between periods. """
-    for i in range(len(X_curr)):
-        if incl_curr[i] and incl_prev[i]:
-            start_point = X_prev[i]
-            end_point = X_curr[i]
-            if np.any(start_point != end_point):
-                ax.arrow(*start_point, *(end_point - start_point), color='grey', alpha=alpha, linestyle='-', linewidth=1)
-
+def plot_data(X, colors, sizes, inclusions, labels, transparency_start, transparency_end, transparency_final, period, n_periods, ax, show_last_positions_only):
+    """
+    Helper function to manage data plotting for each period.
+    """
+    transparency = np.linspace(transparency_start, transparency_end, n_periods)[period]
+    if show_last_positions_only and period == n_periods - 1:
+        transparency = transparency_final
+    valid_indices = inclusions
+    ax.scatter(X[valid_indices, 0], X[valid_indices, 1],
+               alpha=transparency, s=sizes if sizes is not None else DEFAULT_BUBBLE_SIZE,
+               color=colors[valid_indices])
+    if period == n_periods - 1 and labels is not None:
+        for i, txt in enumerate(labels):
+            if valid_indices[i]:
+                ax.text(X[i, 0], X[i, 1], txt, fontsize=DEFAULT_FONT_SIZE)
 
 def draw_trajectories(Y_ts, labels, selected_labels = None, title = None, 
     show_axes = False, show_box = True, show_grid = False, axes_at_origin = False,
@@ -461,7 +445,7 @@ def draw_trajectories(Y_ts, labels, selected_labels = None, title = None,
     if ax is None:
         return_fig = True
         if fig_size is None:
-            fig_size = (5,5)
+            fig_size = (7,7)
         fig, ax = plt.subplots(figsize = fig_size)
     else:
         return_fig = False  
@@ -507,5 +491,5 @@ def draw_trajectories(Y_ts, labels, selected_labels = None, title = None,
         ax.set_title(title, fontdict = title_fontdict)
 
     plt.close()
-    if return_fig:
-        return fig
+    #if return_fig:
+    #    return fig
