@@ -25,7 +25,7 @@
 %% - \Plainauthor{} without affiliations
 %% - Separate authors by \And or \AND (in \author) or by comma (in \Plainauthor).
 %% - \AND starts a new line, \And does not.
-\author{Maximilian Matthe~\orcidlink{0000-0003-0918-3766}\\Indiana University}
+\author{Maximilian Matthe~\orcidlink{0000-0002-5059-4789}\\Indiana University}
 \Plainauthor{Maximilian Matthe}
 
 %% - \title{} in title case
@@ -38,18 +38,17 @@
 %% - \Abstract{} almost as usual
 \Abstract{
   
-This paper present the \pkg{evomap} package, a novel toolbox for dynamic mapping in \proglang{Python}. 
-Mapping methods are essential tools for researchers across various fields to visualize relationships among
-objects as spatial representations, or 'maps'. 
-While existing statistical software primarily supports static mapping - analyzing relationships
-at specific points in time - there's a lack of tools for exploring how these relationships change over time. 
-The \pkg{evomap} package fills this gap by offering a Python implementation of the dynamic mapping framework 
-EvoMap, initially proposed by \cite{Matthe+Ringel+Skiera:2023}, which extends traditional mapping methods
-like Multidimensional Scaling to dynamic contexts. The package features modules for data preprocessing, 
-exploration, and solution evaluation, providing a versatile toolkit for dynamic mapping applications across 
-different disciplines and contexts. This paper details the foundational concepts of static and dynamic mapping
-, describes the architecture and features of \pkg{evomap}, and showcases its application through an extensive 
-example. }
+This paper presents the \pkg{evomap} package, a novel toolbox for dynamic mapping in \proglang{Python}. 
+Researchers across fields use mapping methods to visualize relationships among objects as spatial representations, or 'maps'.
+Most existing statistical software supports only static mapping, which analyzes objects' relationships at a specific point in time. 
+They typically lack functionality for dynamic mapping, which analyzes how relationships evolve over time.
+The \pkg{evomap} package fills this gap with a Python implementation of the dynamic mapping framework 
+EvoMap, initially proposed by \cite{Matthe+Ringel+Skiera:2023}. This framework adapts traditional mapping methods like 
+ Multidimensional Scaling for dynamic analysis. In addition to implementing EvoMap, the package includes
+ tools for data preprocessing, exploration, and result evaluation, making it a comprehensive toolkit
+  for dynamic mapping applications across various disciplines. 
+  This paper details the foundations of static and dynamic mapping, describes the architecture and features of \pkg{evomap}, 
+and showcases its application with an extensive example. }
 
 %% - \Keywords{} with LaTeX markup, at least one required
 %% - \Plainkeywords{} without LaTeX markup (if necessary)
@@ -90,11 +89,10 @@ example. }
 \section[Introduction]{Introduction} \label{sec:intro}
 
 Mapping, also termed 'scaling', encompasses a range of statistical methods that analyze data 
-consisting of pairwise relationships using spatial representations, known as 'maps'. 
-These methods map pairwise relationships onto configurations where objects are positioned 
-as points within a lower-dimensional space. By employing mapping methods, 
-researchers can detect underlying patterns, identify latent dimensions of 
-difference.
+consisting of pairwise relationships through spatial representations, often referred to as 'maps'. 
+These methods project pairwise relationships onto configurations where objects are positioned 
+as points within a lower-dimensional space. The resulting maps facilitate exploring the data structure, reveal hidden patterns, 
+and help identify key dimensions of difference.
 
 Prominent techniques such as Multidimensional Scaling (MDS, \cite{Carroll+Arabie:1998}), 
 Sammon Mapping (\cite{Sammon:1969}), or t-distributed Stochastic Neighbor Embedding 
@@ -108,12 +106,12 @@ and political science \citep{Jacoby+Armstrong:2014}, where they help understandi
 market competition, social network structures, ecological interactions, cognitive processes, 
 latent psychological traits, or political landscapes. 
 
-Mapping methods traditionally generate static maps based on data capturing pairwise relationships 
-at a specific point in time. However, these relationships evolve due to shifts in consumer perceptions, 
-social interactions, and political stances. If longitudinal data is available, it 
-allows analysts to capture these dynamics, though doing so also introduces methodological challenges. 
-EvoMap, as recently proposed by \citep{Matthe+Ringel+Skiera:2023}, adapts static mapping methods 
-to work with longitudinal data, providing analysts with a flexible tool to harness its potential.
+Mapping methods traditionally generate static maps based on data that captures pairwise relationships among objects 
+at a specific point in time. However, these relationships often change over time due to evolving consumer perceptions, 
+social interactions, or political stances. When longitudinal data on such evolving relationships is available, 
+analysts can gain deeper insights by representing these changes in dynamic maps. Although dynamic mapping introduces
+additional methodological challenges, EvoMap, as recently proposed by \citep{Matthe+Ringel+Skiera:2023}, addresses them
+and provides a flexible framework for adapting static mapping methods, like MDS, Sammon Mapping or t-SNE, to accomodate longitudinal data.
 
 Thus far, however, statistical software development has focused almost entirely on static mapping. 
 In \proglang{Python}, the \pkg{scikit-learn} package offers implementations of static mapping methods 
@@ -128,8 +126,7 @@ found in \pkg{Rtsne} \citep{Krijthe:2015}, which implements t-SNE, or \pkg{vegan
  non-metric MDS.
 
  These existing packages provide versatile toolsets for static mapping, but their functionality for dynamic mapping is 
- minimal. They provide functions that typically process only a single relationship matrix at a time. 
-When analyzing a temporal sequence of matrices, such independent mapping often creates incomparable solutions that are 
+ limited. Their functions typically process only a single relationship matrix at a time. When analyzing a temporal sequence of matrices, such independent mapping often creates incomparable solutions that are 
 challenging to compare over time \citep{Matthe+Ringel+Skiera:2023}. 
 Although the \pkg{smacof} package supports three-way MDS, which allows to process multiple relationship matrices 
 simultaneously, it is designed to analyze differences across individuals rather than changes over time. 
@@ -139,9 +136,9 @@ This paper presents the \proglang{Python} package \pkg{evomap}, designed to fill
 as a software companion to \cite{Matthe+Ringel+Skiera:2023}, the \pkg{evomap} package provides 
 a comprehensive toolbox for dynamic mapping. It offers a flexible implementation of the 
 homonymous \emph{EvoMap} framework compatible with various extant static mapping methods. 
-The package's modular design facilitates the addition of new mapping methods. Further, it adopts the
-popular \pkg{scikit-learn} syntax, ensuring ease of use and integration into existing data analysis pipelines. 
-It also includes modules for evaluation and exploration of dynamic mapping applications.
+The package is designed highly modular, facilitating the addition of new mapping methods. Further, it adopts the
+popular \pkg{scikit-learn} syntax, ensuring ease of use. 
+The package also includes modules for evaluation and exploration of dynamic mapping applications.
 
 This article first provides an overview of static and dynamic mapping, essential for understanding \pkg{evomap}'s 
 functionality. It then details the package's design and features, demonstrates its application through an example, 
@@ -156,19 +153,19 @@ Static mapping positions a set of $n \in \mathbb{N}$ objects in a lower-dimensio
  them closely reflect their relationships. Typically, the input data consists of a square $n \times n$ matrix of 
  pairwise relationships, usually measured as pairwise (dis-)similarities
 \footnote{Although input data can vary, this discussion focuses on dissimilarities, the most prevalent type, for simplicity.}. 
-The outcome is an $n$-point configuration in $d \in \mathbb{N}$ dimensions, typically visualized as a two-dimensional 
+The outcome is an $n$-point configuration in $d \in \mathbb{N}$ dimensions, often visualized as a two-dimensional 
 'map' \citep{Borg+Groenen:2005}. To enhance interpretability, one can augment the maps by incorporating additional 
 features of the analyzed objects, for instance, via property fitting \citep{DeSarbo+Hoffman:1987} or by binding them to 
 visual elements like the size or color of each point \citep{Ringel+Skiera:2016}.
 
-Mapping originated in Psychometrics with Torgerson's Classical Scaling \cite{Torgerson:1958}. Since then, research from 
+Mapping originated in Psychometrics with Torgerson's Classical Scaling \citep{Torgerson:1958}. Since then, research from 
 different fields has developed several variants. For instance, \cite{Shepard:1962a, Shepard:1962b} introduced monotonic 
 transformations of the input dissimilarities, leading to non-metric MDS \citep{Kruskal:1964a, Kruskal:1964b}. Other 
 extensions process measurements from multiple subjects \citep{Carroll+Chang:1970} or link the input dissimilarities to 
 map distances using non-linear functions \citep{Sammon:1969}. More recently, other fields, like computer science have 
 contributed methodological innovations, such as t-SNE \citep{van-der-Maaten+Hinton:2008}.
 
-Commononly, these methods fit point coordinates $\hat{X} \in \mathbb{R}^{n \times d}$ of $n$ objects to 
+Commonly, these methods fit point coordinates $\hat{X} \in \mathbb{R}^{n \times d}$ of $n$ objects to 
 given data by minimizing the discrepancy between map distances and input dissimilarities. For MDS, this 
 discrepancy is measured through the Stress function:
 
@@ -193,8 +190,8 @@ Shepard Diagram.
   \caption{\label{fig:static-map} Illustration of Static Mapping}
 \end{figure}
   
-Figure \ref{fig:static-map} illustrates non-metric MDS applied to technology firms based on the
-textual similarity of their product descriptions in 1998, using data from the TNIC dataset \citep{Hoberg+Phillips:2016}.
+Figure \ref{fig:static-map} illustrates non-metric MDS applied to a sample of nine technology firms. The map is generated 
+based on the textual similarity of the firms' product descriptions in 1998, using data from the TNIC dataset \citep{Hoberg+Phillips:2016}.
 The map (left) reveals that, within the nine depicted firms, there are four 
 groups of similar firms based on their main products sold in 1998: i) hardware-focused firms, such
 as Apple, Western Digital, and Micron Technologies; ii) platform-focused firms, like Microsoft and
@@ -211,19 +208,20 @@ The Shepard Diagram (right) confirms the map's good solution quality. The transf
 dissimilarities fit the observed input dissimilarities well, and the rank correlation between the
 observed input dissimilarities and the map distances remains high at .84. 
 
-As firms change their relative positions over time, a map of the same firms generated 
+As these firms change their product offerings, their market positions change. Thus, a map of the same firms generated 
 at different points in time would likely look different. If longitudinal measurements are
 available, the analyst could track the evolution of these maps, gaining insights into the timing, extend, and 
-duration of changes. These are precisely the insights dynamic mapping seeks to provide.
+duration of such changes. These are precisely the insights dynamic mapping seeks to provide.
 
 \subsection{Dynamic Mapping} \label{sec:dynamic-mapping}
 
 Dynamic mapping extends static mapping by revealing how relationships among $n$ objects change over time. 
 In dynamic mapping, the input data consist of a sequence of relationship matrices $(D_t)_{t=1, \dots, T}$
  rather than a single matrix.  
-Applying static mapping methods to each time-point matrix independently, $D_t$, introduces several issues. 
+Applying static mapping methods to each time-point matrix $D_t$ independently introduces several challenges. 
 The estimated point configurations $(\hat{X}_t)_{t=1, \dots, T}$, where $X_t \in \mathbb{R}^{n \times d}$, do 
-not align over time. Additionally, results can be inconsistent due to local optima and are highly sensitive to 
+often not align over time, preventing the analyst from tracking objects' movement. 
+Further, results can be inconsistent due to local optima and are highly sensitive to 
 variations in the data, including noise.
 
 \emph{EvoMap}, as proposed by \cite{Matthe+Ringel+Skiera:2023}, addresses these issues 
@@ -250,7 +248,7 @@ with the total cost function:
 Here, $C_{static}$ represents the static component of EvoMap’s cost function, which equals
 the sum of the cost function $C_{static}$ of the selected static mapping method evaluated at each period
 $t \in \{1, \ldots, T\}$. When paired with MDS, for instance, $C_{static}$ would equal the Stress function in
-equation \ref{eq:stress}. $C_{temporal}$, controlled by the hyperparameter $\alpha \in \mathbb{R}$, represents the temporal component of the cost function, which
+equation \ref{eq:stress}. $C_{temporal}$, weighted by the hyperparameter $\alpha \in \mathbb{R}$, represents the temporal component of the cost function, which
 aligns the maps and smooths objects’ movements over time. The temporal cost component, $C_{temporal}$, is
 further defined as:
 
@@ -272,7 +270,7 @@ where \\
 
 Figure \ref{fig:dynamic-map-illustration} demonstrates dynamic mapping for nine technology firms over 20 years, 
 contrasting a static 1998 snapshot (left) with their evolving positions (right). The dynamic map, 
-created by applying \emph{EvoMap} to 20 dissimilarity matrices, reveals how the firms' positions evolved over time. 
+created by applying \emph{EvoMap} to 20 dissimilarity matrices representing 20 years, reveals how the firms' positions evolved over time. 
 Apple and Western Digital, for instance, part ways as Apple ventures into the software space - bringing it closer to firms like Intuit. 
 Microsoft and Oracle converge further, while the telecommunication firms’ positions
 remain static in comparison. In its remainder, this paper details how to create dynamic maps
@@ -288,30 +286,27 @@ remain static in comparison. In its remainder, this paper details how to create 
 
 \subsection{Installation}
 
-The \pkg{evomap} package is accessible for installation directly from GitHub. Users can install it using the following
- command in the terminal:
+\pkg{evomap} can be installed directly from the Python Package Index (PyPI) by running:
 
 \begin{CodeChunk}
   \begin{CodeInput}
-  > pip install git+https://github.com/mpmatthe/evomap
+  > pip install evomap
   \end{CodeInput}
 \end{CodeChunk}
 
-The installation requires \proglang{Python} version 3.7.1 or
-newer, alongside an operational \proglang{C} compiler. At the time of writing the latest release of \pkg{evomap} is 
-version 0.2.0. Updates are actively developed on GitHub, available at \href{https://github.com/mpmatthe/evomap} 
-{https://github.com/mpmatthe/evomap}. Future versions will be released as pre-compiled packages through the Python 
-Package Index (PyPi) for easy access.
+The installation requires \proglang{Python} version 3.9 or newer, alongside an operational \proglang{C} compiler. 
+At the time of writing the latest release of \pkg{evomap} is version 0.3.1. Updates are actively developed on GitHub, 
+available at \href{https://github.com/mpmatthe/evomap}{https://github.com/mpmatthe/evomap} and subsequently released to PyPI.
 
 \subsection{Dependencies}
 
-The \pkg{evomap} package draws on a limited number of other packages. It relies on \pkg{numpy} and \pkg{scipy} for 
+\pkg{evomap} draws on a limited number of other packages. It relies on \pkg{numpy} and \pkg{scipy} for 
 numerical computations and \pkg{matplotlib} and \pkg{seaborn} for plotting. To optimize runtime, individual functions 
 are either precompiled to \proglang{C} using \pkg{cython}, or use the just-in-time \proglang{C}-compiler \pkg{numba}.
 
 \subsection{Package Overview}
 
-The \pkg{evomap} package is structured into six key modules\footnote{For clarity, the unified term 'module' encompasses 
+\pkg{evomap} is structured into six key modules\footnote{For clarity, the unified term 'module' encompasses 
 submodules, modules, and subpackages.}, designed to streamline the analysis workflow:
 
 \vbox{%
@@ -319,17 +314,16 @@ submodules, modules, and subpackages.}, designed to streamline the analysis work
   \item \code{datasets}: Offers example datasets, enabling users to familiarize themselves with the package's %
   capabilities. 
   \item \code{preprocessing}: Transforms diverse input data into a format compatible with EvoMap. 
-  \item \code{mapping}: Contains EvoMap implementations for various static mapping methods, allowing users to apply % 
-  EvoMap to their data.
-  \item \code{printer}: Provides tools for visual exploration of both static and dynamic mapping results. 
-  \item \code{transform}: Includes options for map adjustments (e.g., rotations and reflections) that can enhance %
-  interpretability. 
-  \item \code{metrics}: Features a suite of evaluation metrics and goodness-of-fit statistics to evaluate mapping %
+  \item \code{mapping}: Contains EvoMap implementations for various mapping methods.
+  \item \code{printer}: Provides tools for visual exploration of both static and dynamic maps. 
+  \item \code{transform}: Includes options for adjusting maps (e.g., rotations and reflections that can enhance %
+  interpretability). 
+  \item \code{metrics}: Features a set of evaluation metrics and goodness-of-fit statistics to evaluate mapping %
   results. 
 \end{enumerate}}
 
-Table \ref{tab:modules} presents an overview of these modules, with detailed descriptions and complete API 
-references available at \href{https://evomap.readthedocs.io/en/latest/autoapi/evomap/index.html} {ReadTheDocs}.
+Table \ref{tab:modules} presents an overview of these modules, with detailed descriptions and a complete API 
+reference available at \href{https://evomap.readthedocs.io/en/latest/autoapi/evomap/index.html} {ReadTheDocs}.
 
  \begin{table}[hbt!]
   \centering
@@ -338,14 +332,14 @@ references available at \href{https://evomap.readthedocs.io/en/latest/autoapi/ev
   \# & Name & Purpose & Exemplary Functions or Classes\\ 
   \hline
   (1) & evomap.datasets       & Load exemplary datasets \newline                  & \code{load\_tnic\_snapshot()} \\
-  (2) & evomap.preprocessing  & Prepare data for mapping \newline \newline        & \code{coocc2sim()}, \code{edgelist2matrix()} \\ 
-  (3) & evomap.mapping        & Apply EvoMap to data \newline                     & \code{MDS()}, \code{EvoMDS()}, \code{TSNE()}, \code{EvoTSNE()}\\
-  (4) & evomap.printer        & Visualize mapping results \newline                & \code{draw\_map()}, \code{draw\_dynamic\_map()}, \code{draw\_map\_sequence()}\\ 
+  (2) & evomap.preprocessing  & Prepare data for mapping \newline       & \code{coocc2sim()}, \code{edgelist2matrix()} \\ 
+  (3) & evomap.mapping        & Apply EvoMap to data \newline                     & \code{MDS()}, \code{EvoMDS()}, \newline \code{TSNE()}, \code{EvoTSNE()}\\
+  (4) & evomap.printer        & Visualize mapping results \newline                & \code{draw\_map()}, \code{draw\_dynamic\_map()}\\ 
   (5) & evomap.transform      & Adjust mapping results \newline for easier interpretation \newline   & \code{align\_map()} \\
   (6) & evomap.metrics        & Assess mapping quality  \newline                  & \code{misalign\_score()}, \code{hitrate\_score()}, \code{persistence\_score()}\\
   \hline
   \end{tabular}
-  \caption{\label{tab:modules} Overview of modules.}
+  \caption{\label{tab:modules} Overview of Modules}
   \end{table}
   
 \subsection{Basic Usage} 
@@ -354,13 +348,13 @@ The primary use case for \pkg{evomap} is transforming longitudinal relationship 
 spatial representations. The process is straightforward and involves the following three steps:
 
 \begin{enumerate}
-  \item \textbf{Import the EvoMap class} for the desired mapping method.
-  \item \textbf{Initialize EvoMap} with appropriate parameters.
-  \item \textbf{Fit EvoMap} to your data using \code{fit_transform()}.
+  \item \textbf{Import the EvoMap class} for the desired mapping method
+  \item \textbf{Initialize EvoMap} with appropriate parameters
+  \item \textbf{Fit EvoMap} to your data using \code{fit_transform()}
 \end{enumerate}
 
 For example, consider longitudinal data represented by a sequence of 20 dissimilarity matrices for 9 firms, each stored as a
-\pkg{numpy} array \code{D_t} of shape \code{(9,9)}.
+\pkg{numpy} array of shape \code{(9,9)}.
 
 \begin{CodeChunk}
 \begin{CodeInput}
@@ -384,7 +378,7 @@ EvoMap to your data:
 \end{Code}
 
 The result, \code{X_t}, is a sequence of \code{numpy} arrays,  
-mapping the firms onto two dimensions over 20 years. 
+positioning the firms on two dimensions over 20 years. 
 
 \begin{CodeChunk}
 \begin{CodeInput}
@@ -393,7 +387,7 @@ mapping the firms onto two dimensions over 20 years.
 \end{CodeInput}
 \end{CodeChunk}
 
-To explore the result, visualize the point coordinates stored in \code{X_t} with \code{draw_dynamic_map()},
+To explore the result, we can visualize the point coordinates stored in \code{X_t} with \code{draw_dynamic_map()},
 providing labels, and optionally displaying arrows and axes. Figure \ref{fig:dynamic-map} showcases the resultant 
 evolution of the nine firms' positions from 1998 to 2017. 
 
@@ -413,13 +407,13 @@ evolution of the nine firms' positions from 1998 to 2017.
 \begin{figure}
   \centering
   \resizebox{0.5\textwidth}{!}{\includegraphics{../gen/Fig3_dynamic_map.PNG}}
-  \caption{\label{fig:dynamic-map} Dynamic Map of Nine Technology Firms, 1998 - 2017.}
+  \caption{\label{fig:dynamic-map} Dynamic Map of Nine Technology Firms, 1998 - 2017}
 \end{figure}
 
 The \pkg{evomap} package encompasses a full toolbox of functionalities beyond simply generating dynamic maps. 
 It equips users with a range of tools for each step of the data analysis process, from initial data preprocessing 
-and formatting to the exploration and assessment of the mapping results. The following section briefly illustrates 
-the overall package design and implementation, before the paper delves into a more comprehensive usage example. 
+and formatting to exploring and assessing mapping results. The following section briefly illustrates 
+the overall package design and implementation, before the paper presents a comprehensive usage example. 
 
 \subsection{Package Design and Implementation}
 
@@ -443,7 +437,7 @@ framework affect all mapping implementations uniformly.
 \begin{figure}[hbt!]
   \centering
   \includegraphics{../misc/package-design.png}
-  \caption{\label{fig:package-design} Overview of the Mapping Module.}
+  \caption{\label{fig:package-design} Overview of the Mapping Module}
 \end{figure}
   
 Currently, \pkg{evomap} provides implementations for three mapping methods (MDS, Sammon
@@ -525,10 +519,13 @@ specifying columns for object identifiers, similarity scores, and time indicator
 ...     time_var='year')  
 \end{Code}
 
-The next step involves converting similarity measures into dissimilarities. 
-This can be done through a straightforward transformation, $diss_{i,j} = 1 - sim_{i,j}$, which, alongside 
+The output, \code{S_t}, now contains the data in the required format for EvoMap: a sequence of square matrices, 
+while \code{labels_t} indicates the objects' names along the rows/columns of each matrix.
+
+The next step involves converting the similarity measures in \code{S_t} into dissimilarities. 
+Here, we use a straightforward transformation, $diss_{i,j} = 1 - sim_{i,j}$, which, alongside 
 other transformations, is available in the \code{sim2diss()} function. 
-We apply this transformation to each matrix in the series, which yields a list of 20 dissimilarity matrices, 
+We apply this transformation to each matrix in the sequence, which yields a list of 20 dissimilarity matrices, 
 each of shape $(9,9)$, ready for dynamic mapping with EvoMap.
 
 \begin{Code}
@@ -551,16 +548,15 @@ relationships among objects over time. For example, to use EvoMDS for Multidimen
 >>> X_t = evomds.fit_transform(D_t)    
 \end{Code}
 
-Key parameters to consider when initializing EvoMap include:
+The key parameters to consider when initializing EvoMap include:
 \begin{itemize}
-  \item \textbf{EvoMap's Hyperparameters:} These include $\alpha$ and $p$, which regulate the degree of alignment and smoothness.
-  \item \textbf{Method-Specific Arguments:} These vary by the mapping method used. For instance, \code{mds_type} %
-  specifies the type of MDS (e.g., ratio, interval, or ordinal), while \code{perplexity} determines how closely or %
-  broadly t-SNE groups data points together. 
-  \item \textbf{Starting Positions:} The initial configuration, \code{init}, which can significantly influence the optimization process and final % 
+  \item \textbf{EvoMap's Hyperparameters}, $\alpha$ and $p$, which regulate the degree of alignment and smoothness.
+  \item \textbf{Method-Specific Arguments}, which vary by the mapping method used. For instance, MDS requires the specify the \code{mds_type} %
+  (e.g., ratio, interval, or ordinal), while t-SNE requires to set its \code{perplexity}. 
+  \item \textbf{Starting Positions}, \code{init}, which can significantly influence the optimization process and final % 
   mapping quality. 
-  \item \textbf{Optimization Arguments:} These impact convergence and computational time. For example, \code{n_iters}, %
-  which sets the number of iterations for the optimization algorithm.  
+  \item \textbf{Optimization Arguments}, which impact convergence and computational time. For example, \code{n_iters} %
+  sets the number of iterations for the optimization algorithm.  
 \end{itemize}
 
 The following sections outline these choices in more detail. 
@@ -571,16 +567,14 @@ To achieve consistent results across different runs, it's important to control t
 process. This can be done in two ways:
 
 \begin{enumerate}
-    \item \textbf{Setting a Fixed Seed:} Use \code{np.random.seed()} with a specific number before instantiating EvoMap to %
-    ensure random initializations are reproducible.
-    \item \textbf{Setting Starting Positions:} Use the \code{init} argument to provide predetermined starting positions when %
+    \item \textbf{Setting a Fixed Seed}, by using \code{np.random.seed()} with a specific number before instantiating EvoMap.
+    \item \textbf{Setting Starting Positions}, by using the \code{init} argument to provide predetermined starting positions when %
     instantiating EvoMap.
 \end{enumerate}
 
 The \code{init} parameter accepts a list of starting positions matching the desired output shape, in this case, 
-\code{(9,2)}. A common strategy is to use the output of another mapping method, such as Classical Scaling, for 
-these starting positions. This approach can potentially lead to a solution with lower stress when applying MDS 
-\citep{DeLeeuw+Mair:2009}.
+\code{(9,2)}. A common strategy is to use the output of another (static) mapping method, such as Classical Scaling, for 
+these starting positions \citep{DeLeeuw+Mair:2009}.
 
 In our example, we employ the Classical Scaling solution from the first time period as the starting positions for all 
 periods. Classical Scaling is fully deterministic, does not rely on random seeds, and offers full reproducibility. 
@@ -598,7 +592,7 @@ for each period:
 \end{CodeInput}
 \end{CodeChunk}
 
-\subsubsection{Hyperparameters in Dynamic Mapping}
+\subsubsection{EvoMap's Hyperparameters}
 
 \emph{EvoMap} requires the user to set two hyperparameters: $\alpha$ and $p$. 
 $\alpha$ influences how strongly subsequent point coordinates align with each other, 
@@ -608,8 +602,8 @@ these hyperparameters is crucial, as they strongly affect EvoMap's output.
 Users of the \pkg{evomap} package can identify suitable values for $\alpha$ and $p$ in two primary ways: 
 
 \begin{enumerate}
-  \item \textbf{Visual Inspection:} Explore EvoMap's output under various hyperparameter combinations. 
-  \item \textbf{Quantitative Evaluation:} Use a grid search to systematically test and evaluate a range of %
+  \item \textbf{Visual Inspection}, by exploring EvoMap's output under various hyperparameter combinations. 
+  \item \textbf{Quantitative Evaluation}, by using a grid search to systematically test and evaluate a range of %
   hyperparameter combinations.
 \end{enumerate}
 
@@ -622,7 +616,7 @@ at a medium value).
 \begin{figure}[hbt!]
   \centering
   \resizebox{\textwidth}{!}{\includegraphics{../gen/Fig5_hyperparamters.png}}
-  \caption{\label{fig:hyperparameters} Dynamic Map Under Different Hyperparameter Choices.}
+  \caption{\label{fig:hyperparameters} Dynamic Map Under Different Hyperparameter Choices}
 \end{figure}
   
 Figure \ref{fig:hyperparameters} illustrates that a lower $\alpha$ value tends to produce maps with weaker alignment 
@@ -631,7 +625,7 @@ An excessively high $\alpha$ might lead to nearly static maps, showing only mini
 Conversely, the impact of $p$ is less about the length of the paths and more about their smoothness; higher $p$ values 
 decrease zigzag movements, leading to smoother trajectories and more uniform distances between subsequent points.
 
-A later section will discuss a methodological approach, a grid search, for selecting appropriate 
+A later section will discuss a more methodological approach, a grid search, for selecting appropriate 
 values for $\alpha$ and $p$.
 
 \subsubsection{Convergence Diagnostics}
@@ -641,14 +635,14 @@ of its gradient-based optimization. However, such information on convergence can
 especially when faced with suboptimal solution quality or unexpected results. 
 To obtain such diagnostics, users can modify the \code{verbose} parameter to increase output verbosity: 
 \begin{itemize}
-  \item \code{verbose=1} (the default) means no output is provided.
-  \item \code{verbose=2} reveals basic information about the optimization routine, the final cost function value, and % 
+  \item \code{verbose=0} (the default) means no output is provided.
+  \item \code{verbose=1} reveals basic information about the optimization routine, the final cost function value, and % 
   convergence status.
-  \item \code{verbose=3} offers detailed insights into the optimization process, including cost function values at %
+  \item \code{verbose=2} offers detailed insights into the optimization process, including cost function values at %
   specific intervals.  
 \end{itemize}
 
-Setting \code{verbose = 1}, for instance, indicates the optimization routine (gradient descent with backtracking)
+Setting \code{verbose=1}, for instance, indicates the optimization routine (gradient descent with backtracking)
 and an indication of its successful convergence at iteration 105:
 
 \begin{CodeChunk}
@@ -662,12 +656,12 @@ and an indication of its successful convergence at iteration 105:
 \end{CodeInput}
 \begin{CodeOutput}
 [EvoMDS] Running Gradient Descent with Backtracking via Halving
-[EvoMDS] Iteration 105: gradient norm vanished. Final cost: 3.80
+[EvoMDS] Iteration 499: gradient norm vanished. Final cost: 3.86
 \end{CodeOutput}
 \end{CodeChunk}
 
 Here, we use \code{fit()}, which runs EvoMap without returning the resultant point coordiantes. 
-Setting \code{verbose=2} and \code{n_iter_check=20} evaluates the cost function every 20 iterations and reveals 
+Setting \code{verbose=2} and \code{n_iter_check=50} evaluates the cost function every 20 iterations and reveals 
 how the cost function values decrease monotonically, until the gradient norm vanishes around iteration 105.
 
 \begin{CodeChunk}
@@ -676,18 +670,22 @@ how the cost function values decrease monotonically, until the gradient norm van
 ...     alpha=.2,
 ...     mds_type='ordinal',
 ...     init=cmds_t,
-...     n_iter_check=20,
+...     n_iter_check=50,
 ...     verbose=2
 ... ).fit(D_t)    
 \end{CodeInput}
 \begin{CodeOutput}
 [EvoMDS] Running Gradient Descent with Backtracking via Halving
-[EvoMDS] Iteration 20 -- Cost: 3.81 -- Gradient Norm: 0.0245
-[EvoMDS] Iteration 40 -- Cost: 3.80 -- Gradient Norm: 0.0104
-[EvoMDS] Iteration 60 -- Cost: 3.80 -- Gradient Norm: 0.0076
-[EvoMDS] Iteration 80 -- Cost: 3.80 -- Gradient Norm: 0.0058
-[EvoMDS] Iteration 100 -- Cost: 3.80 -- Gradient Norm: 0.0012
-[EvoMDS] Iteration 105: gradient norm vanished. Final cost: 3.80
+[EvoMDS] Iteration 50 -- Cost: 3.88 -- Gradient Norm: 0.0134
+[EvoMDS] Iteration 100 -- Cost: 3.88 -- Gradient Norm: 0.0051
+[EvoMDS] Iteration 150 -- Cost: 3.87 -- Gradient Norm: 0.0059
+[EvoMDS] Iteration 200 -- Cost: 3.87 -- Gradient Norm: 0.0054
+[EvoMDS] Iteration 250 -- Cost: 3.87 -- Gradient Norm: 0.0064
+[EvoMDS] Iteration 300 -- Cost: 3.87 -- Gradient Norm: 0.0028
+[EvoMDS] Iteration 350 -- Cost: 3.87 -- Gradient Norm: 0.0058
+[EvoMDS] Iteration 400 -- Cost: 3.87 -- Gradient Norm: 0.0065
+[EvoMDS] Iteration 450 -- Cost: 3.86 -- Gradient Norm: 0.0060
+[EvoMDS] Iteration 499: gradient norm vanished. Final cost: 3.86
 \end{CodeOutput}
 \end{CodeChunk}
 
@@ -696,13 +694,10 @@ Specifically, the user can:
 
 \vbox{
 \begin{itemize}
-  \item Utilize \code{evomap.preprocessing} to normalize input data, as some \\ 
-  mapping methods struggle with input data measured on unusual or very large scales.
+  \item Utilize \code{evomap.preprocessing} to normalize input data, as some mapping methods struggle with input data measured on unusual or very large scales.
   \item Increase \code{n_iter} to extend the number of allowed iterations.
-  \item Adjust \code{step_size} (by default: 1) to modify convergence speed; decrease if optimization overshoots, or \\ 
-  increase it for faster convergence. 
-  \item Experiment with multiple initializations through \code{n_inits} to mitigate the impact \\
-  of random starting positions. 
+  \item Adjust \code{step_size} (by default: 1) to modify convergence speed; decrease if optimization overshoots, or increase it for faster convergence. 
+  \item Experiment with multiple initializations through \code{n_inits} to mitigate the impact of random starting positions. 
 \end{itemize}
 }
 
@@ -715,8 +710,8 @@ The \pkg{evomap} package provides a range of options to explore mapping results 
 module. One can categorize these functions into two groups:
 
 \begin{enumerate}
-  \item \textbf{Static Maps:} visualizing individual snapshots at a time
-  \item \textbf{Dynamic Maps:} visualizing the evolution over time. 
+  \item \textbf{Static Maps}, which visualize individual snapshots at a time
+  \item \textbf{Dynamic Maps}, which visualize the evolution over time
 \end{enumerate}
 
 \subsubsection{Static Maps}
@@ -760,7 +755,7 @@ Figure \ref{fig:draw-map-illustrations}.
 \begin{figure}[hbt!]
   \centering
   \resizebox{0.7\textwidth}{!}{\includegraphics{../gen/Fig7_draw_map_illustrations.png}}
-  \caption{\label{fig:draw-map-illustrations} Static Map with Different Aesthetics.}
+  \caption{\label{fig:draw-map-illustrations} Static Map with Different Aesthetics}
 \end{figure}
   
 \subsubsection{Dynamic Maps}
@@ -783,8 +778,7 @@ An example of creating a dynamic map with additional aesthetics is:
 ...     color_t=sic_codes_t,
 ...     size_t=sizes_t,
 ...     show_arrows=True,
-...     show_axes=True,
-...     title='A: Dynamic Map')  
+...     show_axes=True)  
 \end{CodeInput}
 \end{CodeChunk}
 
@@ -797,15 +791,14 @@ offers a specialized view highlighting the trajectory of each object through tim
 >>> draw_trajectories(X_t,
 ...     labels=labels,
 ...     period_labels=periods,
-...     show_axes=True,
-...     title='B: Trajectories')  
+...     show_axes=True)  
 \end{CodeInput}
 \end{CodeChunk}
 
 \begin{figure}[hbt!]
   \centering
   \resizebox{0.7\textwidth}{!}{\includegraphics{../gen/Fig8_dynamic_map_and_trajectories.png}}
-  \caption{\label{fig:draw-dynamic-map-and-trajectories} Dynamic Maps for TNIC Sample.}
+  \caption{\label{fig:draw-dynamic-map-and-trajectories} Dynamic Maps for TNIC Sample}
 \end{figure}
 
 \subsection{Evaluation}
@@ -824,8 +817,8 @@ it is essential to evalute how well they represent the underlying data. This can
 
 For instance, in the TNIC dataset example, we assess how EvoMap's alignment affects individual 
 mapping solution quality by comparing the average Stress against a sequence generated independently 
-(i.e., without alignment). The increase in Stress is negligible (+0.0108), which indicates minimal static quality 
-compromise for the benefit of alignment.
+(i.e., without alignment). The increase in Stress is negligible (+0.0108), which indicates a minimal decrease in static quality 
+for the benefit of alignment.
 
 \begin{CodeChunk}
 \begin{CodeInput}
@@ -843,8 +836,8 @@ compromise for the benefit of alignment.
 \end{CodeOutput}
 \end{CodeChunk}
 
-Table \ref{tab:evaluation-metrics} introduces the additional evaluation metrics available in the \code{metrics} module, 
-detailing their purpose, application scope (single snapshot vs. sequence), and interpretation range. We refer to 
+Table \ref{tab:evaluation-metrics} introduces the additional evaluation metrics available in the \code{metrics} module. 
+The table lists the metric, its purpose, application scope (single snapshot vs. sequence), and interpretation range. We refer to 
 \cite{Matthe+Ringel+Skiera:2023} for more
 details on these metrics and their underlying intuition.
 
@@ -864,8 +857,10 @@ details on these metrics and their underlying intuition.
   \caption{\label{tab:evaluation-metrics} Evaluation Metrics}
 \end{table}
 
-Applying these metrics to the EvoMap results, allows us to quantify aspects of solution quality such as 
-(mis-)alignment or persistence:
+In the TNIC example, we compute the following metrics: alignment and persistence. 
+We compute each metric for EvoMap's output and two benchmarks: independent application of MDS and ex-post alignment of independent mapping via 
+Procrustes Analysis. Table \ref{tab:evaluation-results} displays the results. As seen in the Table, EvoMap's solution is 
+better aligned and movement paths are smoother (thus, easier to interpret), while static mapping quality is not reduced. 
 
 \begin{CodeChunk}
 \begin{CodeInput}
@@ -874,8 +869,8 @@ Applying these metrics to the EvoMap results, allows us to quantify aspects of s
 >>> persistence_score(X_t).round(4)
 \end{CodeInput}
 \begin{CodeOutput}
-0.0498
-0.6417
+0.0442
+0.6405
 \end{CodeOutput}
 \end{CodeChunk}
 
@@ -885,25 +880,21 @@ Applying these metrics to the EvoMap results, allows us to quantify aspects of s
     \hline
     Test & Misalignment Score & Persistence Score & Static Cost \\
     \hline
-    Independent MDS & 1.1694 & -0.6234 & 0.1802 \\
-    Independent MDS \newline + Alignment & 0.3603 & -0.2728 & 0.1802 \\
-    EvoMDS & 0.0498 & 0.6417 & 0.1910 \\
+    Independent MDS & 0.9982 & -0.6082 & 0.1802 \\
+    Independent MDS \newline + Alignment & 0.3203 & -0.2728 & 0.1802 \\
+    EvoMDS & 0.0442 & 0.6405 & 0.1910 \\
     \hline
   \end{tabular}  
   \caption{\label{tab:evaluation-results} Evaluation Results}
 \end{table}
 
-Table \ref{tab:evaluation-results} compiles these evaluations, 
-comparing EvoMap's results to independent application of MDS and ex-post alignment of independent mapping via 
-Procrustes Analysis. 
-As seen in the Table, EvoMap is very effective in achieving low misalignment and high persistence, indicating 
-consistent and coherent mapping over time, without 
-comprising static mapping quality.
+
 
 \section{Advanced Features}
 
-This section introduces advanced features of the \pkg{evomap} package, 
-focusing on finding good hyperparameter values and incorporating unbalanced data.
+To close the presentation of the \pkg{evomap} package, this final section showcases two additional
+considerations that are relevant in many applications: finding good hyperparameter values and
+dealing with unbalanced data.
 
 \subsection{Finding Good Hyperparameter Values}
 
@@ -948,17 +939,14 @@ To run the grid search, the user needs to:
 \vbox{
 \begin{CodeChunk}
 \begin{CodeInput}
->>> from evomap.preprocessing import edgelist2matrices, expand_matrices
->>> S_t, labels = edgelist2matrices(
-...     data_unbalanced, 
-...     score_var='score', 
-...     id_var_i='name1', 
-...     id_var_j='name2', 
-...     time_var='year')
->>> print(S_t[0].shape)   # Output: (9,9)
->>> S_t, inc_t, labels = expand_matrices(S_t, labels)
->>> print(S_t[0].shape)   # Output: (10,10)
->>> print(inc_t[0])   # Output: [1 1 1 1 1 1 1 1 1 0]  
+>>> model = EvoMDS(init = cmds_t, mds_type = 'ordinal')
+
+>>> df_grid_results = model.grid_search(
+...     Xs=D_t, 
+...     param_grid=param_grid, 
+...     eval_functions=metrics,
+...     eval_labels=metric_labels, 
+...     kwargs={"input_format" : 'dissimilarity'})
 \end{CodeInput}
 \end{CodeChunk}
 }
@@ -987,11 +975,11 @@ To maintain a consistent data format across time, despite the unbalanced nature 
 \pkg{evomap} requires each relationship matrix in the sequence to have the same dimensions. This is achieved by:
 
 \begin{enumerate}
-  \item \textbf{Balancing the Data:} Convert the unbalanced dataset into a balanced sequence of matrices of uniform %
+  \item \textbf{Balancing the Data}, by converting it into a balanced sequence of matrices of uniform %
    shape, incorporating all objects observed throughout the observation period. For absent objects at any given time, %
    fill the corresponding rows and columns with an arbitrary value (e.g., 0).
-  \item \textbf{Creating Inclusion Vectors:} Generate vectors for each time period indicating the presence (1) %
-  or absence (0) of each object. These vectors control which parts of the matrices to consider during mapping %
+  \item \textbf{Creating Inclusion Vectors}, indicating the presence (1) %
+  or absence (0) of each object for each time period. These vectors control which parts of the matrices to consider during mapping %
   at any given time.
 \end{enumerate}
 
@@ -1068,31 +1056,23 @@ enabling them to focus on their specific application rather than the method's im
 capabilities span data preparation, model fitting, visualization, and evaluation, supporting a wide range of potential
 applications.
 
-Currently, \pkg{evomap} integrates three core mapping methods (MDS, Sammon Mapping, and t-SNE). These methods, 
-despite their versatility, come with prerequisites such as the need for complete observations at each time point and the 
-limitation to symmetric relationships. Despite these constraints, \pkg{evomap}'s design inherently supports easy 
-expansion. Its modular structure facilitates the incorporation of additional mapping methods, including those 
-capable of processing asymmetric data or generating alternative output formats (e.g, spherical embeddings). This 
-flexibility ensures that \pkg{evomap} serves as a solid foundation for future development, ready to adapt to 
-evolving research needs.
+While the package offers a broad range of functionalities, it also presents opportunities for future extensions. 
+Currently, \pkg{evomap} integrates three core mapping methods (MDS, Sammon Mapping, and t-SNE). As outlined in 
+section \ref{sec:package}, however, its modular structure makes it easy to expand this set of methods. While the currently
+implemented methods are versatile, they come with specific requirements for the input data. 
+For instance, all methods necessitate complete observations for each time point. This means that while EvoMap 
+can accomodate unbalanced data over time, it cannot accommodate incomplete data (e.g., due to missing relationships). 
+At the same time, the implemented methods do not allow for asymmetric relationships, nor do they generate output other than Cartesian planes.
+As static mapping methods exist that can accommodate these requirements, like asymmetric or
+spherical MDS, adding them to the evomap package could further extend EvoMap's possible areas of application. Further, 
+combining EvoMap with external preference analysis or property fitting could extend the resultant maps' interpretability.
 
-There are multiple areas for further development: enhancing \pkg{evomap}'s method repertoire, optimizing its 
-convergence algorithms, and improving map interpretability (e.g., via external preference analysis or property fitting).
-
-We hope that the evomap package can aid users in applying the EvoMap framework, and that it can 
+To conlcude, we hope that the \pkg{evomap} package can aid users in applying the EvoMap framework, and that it can 
 serve as a foundation for manifold applications of dynamic mapping in different domains.
 
 \section*{Acknowledgments}
 
 This research was supported by the German Research Foundation, Deutsche Forschungsgemeinschaft (grant number SK 66/9-1). 
-
-%% -- Bibliography -------------------------------------------------------------
-%% - References need to be provided in a .bib BibTeX database.
-%% - All references should be made with \cite, \citet, \citep, \citealp etc.
-%%   (and never hard-coded). See the FAQ for details.
-%% - JSS-specific markup (\proglang, \pkg, \code) should be used in the .bib.
-%% - Titles in the .bib should be in title case.
-%% - DOIs should be included where available.
 
 \bibliography{refs}
 

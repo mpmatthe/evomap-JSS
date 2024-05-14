@@ -1,8 +1,8 @@
-PWD /Users/mpmatthe/Dropbox (Personal)/Promotion/Research-Projects/Projects/02-Single-Author/Code/paper
+PWD /Users/mpmatthe/Dropbox (Personal)/Promotion/Research-Projects/Projects/02-Single-Author/Submissions/JSTAT/Code/paper
 INPUT /usr/local/texlive/2023/texmf.cnf
 INPUT /usr/local/texlive/2023/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /Users/mpmatthe/Dropbox (Personal)/Promotion/Research-Projects/Projects/02-Single-Author/Code/paper/article.tex
+INPUT /Users/mpmatthe/Dropbox (Personal)/Promotion/Research-Projects/Projects/02-Single-Author/Submissions/JSTAT/Code/paper/article.tex
 OUTPUT article.log
 INPUT ./jss.cls
 INPUT ./jss.cls
