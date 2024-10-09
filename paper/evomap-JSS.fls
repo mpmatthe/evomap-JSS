@@ -1,8 +1,8 @@
-PWD /Users/mpmatthe/Dropbox (Personal)/Promotion/Research-Projects/Projects/02-Single-Author/Submissions/JSTAT/Code/paper
+PWD /Users/mpmatthe/Dropbox (Personal)/Promotion/Research-Projects/Projects/02-Single-Author/Submissions/JSTAT-II/evomap-JSS/paper
 INPUT /usr/local/texlive/2023/texmf.cnf
 INPUT /usr/local/texlive/2023/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /Users/mpmatthe/Dropbox (Personal)/Promotion/Research-Projects/Projects/02-Single-Author/Submissions/JSTAT/Code/paper/evomap-JSS.tex
+INPUT /Users/mpmatthe/Dropbox (Personal)/Promotion/Research-Projects/Projects/02-Single-Author/Submissions/JSTAT-II/evomap-JSS/paper/evomap-JSS.tex
 OUTPUT evomap-JSS.log
 INPUT ./jss.cls
 INPUT ./jss.cls
@@ -1089,11 +1089,11 @@ INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/lm/ts1lmr.fd
 INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/lm/ts1lmr.fd
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/lm/ts1-lmr10.tfm
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/lm/ec-lmri12.tfm
-INPUT ../gen/Fig5_hyperparamters.png
-INPUT ../gen/Fig5_hyperparamters.png
-INPUT ../gen/Fig5_hyperparamters.png
-INPUT ../gen/Fig5_hyperparamters.png
-INPUT ../gen/Fig5_hyperparamters.png
+INPUT ../gen/Fig5_hyperparameters.PNG
+INPUT ../gen/Fig5_hyperparameters.PNG
+INPUT ../gen/Fig5_hyperparameters.PNG
+INPUT ../gen/Fig5_hyperparameters.PNG
+INPUT ../gen/Fig5_hyperparameters.PNG
 INPUT /usr/local/texlive/2023/texmf-dist/fonts/tfm/public/lm/ts1-lmtto10.tfm
 INPUT ../gen/Fig6_static_snapshots.png
 INPUT ../gen/Fig6_static_snapshots.png

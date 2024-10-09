@@ -294,15 +294,15 @@ remain static in comparison. In its remainder, this paper details how to create 
   \end{CodeInput}
 \end{CodeChunk}
 
-The installation requires \proglang{Python} version 3.9 or newer, alongside an operational \proglang{C} compiler. 
-At the time of writing the latest release of \pkg{evomap} is version 0.3.1. Updates are actively developed on GitHub, 
+The installation requires \proglang{Python} version 3.9 or newer. 
+At the time of writing the latest release of \pkg{evomap} is version 0.4.0. Updates are actively developed on GitHub, 
 available at \href{https://github.com/mpmatthe/evomap}{https://github.com/mpmatthe/evomap} and subsequently released to PyPI.
 
 \subsection{Dependencies}
 
 \pkg{evomap} draws on a limited number of other packages. It relies on \pkg{numpy} and \pkg{scipy} for 
 numerical computations and \pkg{matplotlib} and \pkg{seaborn} for plotting. To optimize runtime, individual functions 
-are either precompiled to \proglang{C} using \pkg{cython}, or use the just-in-time \proglang{C}-compiler \pkg{numba}.
+use the just-in-time \proglang{C}-compiler \pkg{numba}.
 
 \subsection{Package Overview}
 
@@ -615,7 +615,7 @@ at a medium value).
 
 \begin{figure}[hbt!]
   \centering
-  \resizebox{\textwidth}{!}{\includegraphics{../gen/Fig5_hyperparamters.png}}
+  \resizebox{\textwidth}{!}{\includegraphics{../gen/Fig5_hyperparameters.PNG}}
   \caption{\label{fig:hyperparameters} Dynamic Map Under Different Hyperparameter Choices}
 \end{figure}
   
@@ -1076,6 +1076,8 @@ serve as a foundation for manifold applications of dynamic mapping in different 
 \section*{Acknowledgments}
 
 This research was supported by the German Research Foundation, Deutsche Forschungsgemeinschaft (grant number SK 66/9-1). 
+
+The authors would like to thank Alexsey Pechnikov for invaluable support in optimizing the code for this project. 
 
 \bibliography{refs}
 

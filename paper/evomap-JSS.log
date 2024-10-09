@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.20)  16 MAY 2024 11:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.20)  7 OCT 2024 15:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"/Users/mpmatthe/Dropbox (Personal)/Promotion/Research-Projects/Projects/02-Single-Author/Submissions/JSTAT/Code/paper/evomap-JSS.tex"
-(/Users/mpmatthe/Dropbox (Personal)/Promotion/Research-Projects/Projects/02-Single-Author/Submissions/JSTAT/Code/paper/evomap-JSS.tex
+**"/Users/mpmatthe/Dropbox (Personal)/Promotion/Research-Projects/Projects/02-Single-Author/Submissions/JSTAT-II/evomap-JSS/paper/evomap-JSS.tex"
+(/Users/mpmatthe/Dropbox (Personal)/Promotion/Research-Projects/Projects/02-Single-Author/Submissions/JSTAT-II/evomap-JSS/paper/evomap-JSS.tex
 LaTeX2e <2022-11-01> patch level 1
 L3 programming layer <2023-02-22> (./jss.cls
 Document Class: jss 2021/05/23 3.3 jss class by Achim Zeileis
@@ -661,11 +661,11 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <9> on input line 155.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 155.
-<../gen/Fig1_static_mapping.png, id=231, 1149.3339pt x 570.2103pt>
+<../gen/Fig1_static_mapping.png, id=231, 1148.6112pt x 570.2103pt>
 File: ../gen/Fig1_static_mapping.png Graphic file (type png)
 <use ../gen/Fig1_static_mapping.png>
 Package pdftex.def Info: ../gen/Fig1_static_mapping.png  used on input line 189.
-(pdftex.def)             Requested size: 354.12434pt x 175.68448pt.
+(pdftex.def)             Requested size: 354.12434pt x 175.79758pt.
 
 Overfull \hbox (5.47499pt too wide) has occurred while \output is active
 [] \T1/lmr/m/n/10.95 3
@@ -711,15 +711,18 @@ Overfull \hbox (5.47499pt too wide) has occurred while \output is active
  []
 
 [5]
-<../gen/Fig2_dynamic_mapping.PNG, id=292, 1018.2843pt x 426.8748pt>
+<../gen/Fig2_dynamic_mapping.PNG, id=292, 1017.0798pt x 425.6703pt>
 File: ../gen/Fig2_dynamic_mapping.PNG Graphic file (type png)
 <use ../gen/Fig2_dynamic_mapping.PNG>
 Package pdftex.def Info: ../gen/Fig2_dynamic_mapping.PNG  used on input line 281.
-(pdftex.def)             Requested size: 354.12434pt x 148.45091pt.
+(pdftex.def)             Requested size: 354.12434pt x 148.2074pt.
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 292.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
+Underfull \vbox (badness 1226) has occurred while \output is active []
+
+
 Overfull \hbox (5.47499pt too wide) has occurred while \output is active
 \T1/lmr/m/n/10.95 6 []
  []
@@ -768,11 +771,11 @@ Overfull \hbox (31.20718pt too wide) in paragraph at lines 390--393
 []\T1/lmr/m/n/10.95 To ex-plore the re-sult, we can vi-su-al-ize the point co-or-di-nates stored in \T1/lmtt/m/n/10.95 X_t \T1/lmr/m/n/10.95 with \T1/lmtt/m/n/10.95 draw_dynamic_map()\T1/lmr/m/n/10.95 ,
  []
 
-<../gen/Fig3_dynamic_map.PNG, id=326, 492.8814pt x 378.213pt>
+<../gen/Fig3_dynamic_map.PNG, id=326, 494.3268pt x 379.1766pt>
 File: ../gen/Fig3_dynamic_map.PNG Graphic file (type png)
 <use ../gen/Fig3_dynamic_map.PNG>
 Package pdftex.def Info: ../gen/Fig3_dynamic_map.PNG  used on input line 409.
-(pdftex.def)             Requested size: 354.12434pt x 271.73604pt.
+(pdftex.def)             Requested size: 354.12434pt x 271.63571pt.
 
 Overfull \hbox (5.47499pt too wide) has occurred while \output is active
 \T1/lmr/m/n/10.95 8 []
@@ -854,11 +857,11 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
  []
 
 [12]
-<../gen/Fig5_hyperparamters.png, id=371, 1294.5966pt x 860.7357pt>
-File: ../gen/Fig5_hyperparamters.png Graphic file (type png)
-<use ../gen/Fig5_hyperparamters.png>
-Package pdftex.def Info: ../gen/Fig5_hyperparamters.png  used on input line 618.
-(pdftex.def)             Requested size: 354.12434pt x 235.44878pt.
+<../gen/Fig5_hyperparameters.PNG, id=371, 1294.1148pt x 859.7721pt>
+File: ../gen/Fig5_hyperparameters.PNG Graphic file (type png)
+<use ../gen/Fig5_hyperparameters.PNG>
+Package pdftex.def Info: ../gen/Fig5_hyperparameters.PNG  used on input line 618.
+(pdftex.def)             Requested size: 354.12434pt x 235.2639pt.
 
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 [] \T1/lmr/m/n/10.95 13
@@ -874,22 +877,22 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) has
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.654 ...   verbose=1
-                      <../gen/Fig5_hyperparamters.png>]
+                      <../gen/Fig5_hyperparameters.PNG>]
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 [] \T1/lmr/m/n/10.95 15
  []
 
 [15]
-<../gen/Fig6_static_snapshots.png, id=396, 1439.1366pt x 426.8748pt>
+<../gen/Fig6_static_snapshots.png, id=396, 1437.9321pt x 425.6703pt>
 File: ../gen/Fig6_static_snapshots.png Graphic file (type png)
 <use ../gen/Fig6_static_snapshots.png>
 Package pdftex.def Info: ../gen/Fig6_static_snapshots.png  used on input line 736.
-(pdftex.def)             Requested size: 354.12434pt x 105.03793pt.
-<../gen/Fig7_draw_map_illustrations.png, id=398, 788.2248pt x 570.933pt>
+(pdftex.def)             Requested size: 354.12434pt x 104.83247pt.
+<../gen/Fig7_draw_map_illustrations.png, id=398, 787.5021pt x 570.6921pt>
 File: ../gen/Fig7_draw_map_illustrations.png Graphic file (type png)
 <use ../gen/Fig7_draw_map_illustrations.png>
 Package pdftex.def Info: ../gen/Fig7_draw_map_illustrations.png  used on input line 757.
-(pdftex.def)             Requested size: 354.12434pt x 256.4993pt.
+(pdftex.def)             Requested size: 354.12434pt x 256.62619pt.
 
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 \T1/lmr/m/n/10.95 16 []
@@ -901,11 +904,11 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) has
                                                   \__shipout_drop_firstpage_...
 l.766 
        <../gen/Fig6_static_snapshots.png>]
-<../gen/Fig8_dynamic_map_and_trajectories.png, id=410, 1148.6112pt x 498.4221pt>
+<../gen/Fig8_dynamic_map_and_trajectories.png, id=410, 1147.4067pt x 498.4221pt>
 File: ../gen/Fig8_dynamic_map_and_trajectories.png Graphic file (type png)
 <use ../gen/Fig8_dynamic_map_and_trajectories.png>
 Package pdftex.def Info: ../gen/Fig8_dynamic_map_and_trajectories.png  used on input line 800.
-(pdftex.def)             Requested size: 354.12434pt x 153.66505pt.
+(pdftex.def)             Requested size: 354.12434pt x 153.82477pt.
 
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 [] \T1/lmr/m/n/10.95 17
@@ -997,11 +1000,11 @@ pdfTeX warning (ext4): destination with the same identifier (name{table.4}) has 
                                                   \__shipout_drop_firstpage_...
 l.909 
       ]
-<../gen/Fig9_grid_search.png, id=439, 1293.8739pt x 426.393pt>
+<../gen/Fig9_grid_search.png, id=439, 1293.3921pt x 425.6703pt>
 File: ../gen/Fig9_grid_search.png Graphic file (type png)
 <use ../gen/Fig9_grid_search.png>
 Package pdftex.def Info: ../gen/Fig9_grid_search.png  used on input line 959.
-(pdftex.def)             Requested size: 354.12434pt x 116.70215pt.
+(pdftex.def)             Requested size: 354.12434pt x 116.54332pt.
 
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 \T1/lmr/m/n/10.95 20 []
@@ -1018,11 +1021,11 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) has
                                                   \__shipout_drop_firstpage_...
 l.1015 \begin{CodeInput}
                          <../gen/Fig9_grid_search.png>]
-<../gen/Fig10_unbalanced.png, id=455, 1005.5166pt x 426.8748pt>
+<../gen/Fig10_unbalanced.png, id=455, 1004.3121pt x 425.6703pt>
 File: ../gen/Fig10_unbalanced.png Graphic file (type png)
 <use ../gen/Fig10_unbalanced.png>
 Package pdftex.def Info: ../gen/Fig10_unbalanced.png  used on input line 1044.
-(pdftex.def)             Requested size: 354.12434pt x 150.33334pt.
+(pdftex.def)             Requested size: 354.12434pt x 150.09102pt.
 
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 \T1/lmr/m/n/10.95 22 []
@@ -1043,15 +1046,15 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 \T1/lmr/m/n/10.95 24 []
  []
 
-[24])
-LaTeX Font Info:    Font shape `T1/pzc/m/n' in size <13> not available
-(Font)              Font shape `T1/pzc/m/it' tried instead on input line 1082.
-
+[24]
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 [] \T1/lmr/m/n/10.95 25
  []
 
-[25]
+[25])
+LaTeX Font Info:    Font shape `T1/pzc/m/n' in size <13> not available
+(Font)              Font shape `T1/pzc/m/it' tried instead on input line 1084.
+
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 \T1/lmr/m/n/10.95 26 []
  []
@@ -1062,14 +1065,14 @@ Package rerunfilecheck Info: File `evomap-JSS.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  22852 strings out of 476025
- 431154 string characters out of 5790016
+ 431188 string characters out of 5790016
  1869388 words of memory out of 5000000
  42675 multiletter control sequences out of 15000+600000
  610511 words of font info for 97 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,14n,94p,566b,864s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,14n,94p,575b,864s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/doublestroke/dsrom10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmb10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmro10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmss10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmtto10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/zapfchan/uzcmi8a.pfb>
-Output written on evomap-JSS.pdf (26 pages, 5626806 bytes).
+Output written on evomap-JSS.pdf (26 pages, 5661919 bytes).
 PDF statistics:
  683 PDF objects out of 1000 (max. 8388607)
  574 compressed objects within 6 object streams
