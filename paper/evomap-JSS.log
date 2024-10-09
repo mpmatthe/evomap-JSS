@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.20)  7 OCT 2024 15:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.20)  9 OCT 2024 15:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -711,16 +711,16 @@ Overfull \hbox (5.47499pt too wide) has occurred while \output is active
  []
 
 [5]
-<../gen/Fig2_dynamic_mapping.PNG, id=292, 1017.0798pt x 425.6703pt>
+<../gen/Fig2_dynamic_mapping.PNG, id=292, 1018.0434pt x 425.6703pt>
 File: ../gen/Fig2_dynamic_mapping.PNG Graphic file (type png)
 <use ../gen/Fig2_dynamic_mapping.PNG>
 Package pdftex.def Info: ../gen/Fig2_dynamic_mapping.PNG  used on input line 281.
-(pdftex.def)             Requested size: 354.12434pt x 148.2074pt.
+(pdftex.def)             Requested size: 354.12434pt x 148.06451pt.
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 292.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-Underfull \vbox (badness 1226) has occurred while \output is active []
+Underfull \vbox (badness 1242) has occurred while \output is active []
 
 
 Overfull \hbox (5.47499pt too wide) has occurred while \output is active
@@ -857,11 +857,11 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
  []
 
 [12]
-<../gen/Fig5_hyperparameters.PNG, id=371, 1294.1148pt x 859.7721pt>
+<../gen/Fig5_hyperparameters.PNG, id=371, 1293.8739pt x 859.7721pt>
 File: ../gen/Fig5_hyperparameters.PNG Graphic file (type png)
 <use ../gen/Fig5_hyperparameters.PNG>
 Package pdftex.def Info: ../gen/Fig5_hyperparameters.PNG  used on input line 618.
-(pdftex.def)             Requested size: 354.12434pt x 235.2639pt.
+(pdftex.def)             Requested size: 354.12434pt x 235.31638pt.
 
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 [] \T1/lmr/m/n/10.95 13
@@ -888,11 +888,11 @@ File: ../gen/Fig6_static_snapshots.png Graphic file (type png)
 <use ../gen/Fig6_static_snapshots.png>
 Package pdftex.def Info: ../gen/Fig6_static_snapshots.png  used on input line 736.
 (pdftex.def)             Requested size: 354.12434pt x 104.83247pt.
-<../gen/Fig7_draw_map_illustrations.png, id=398, 787.5021pt x 570.6921pt>
+<../gen/Fig7_draw_map_illustrations.png, id=398, 787.743pt x 570.6921pt>
 File: ../gen/Fig7_draw_map_illustrations.png Graphic file (type png)
 <use ../gen/Fig7_draw_map_illustrations.png>
 Package pdftex.def Info: ../gen/Fig7_draw_map_illustrations.png  used on input line 757.
-(pdftex.def)             Requested size: 354.12434pt x 256.62619pt.
+(pdftex.def)             Requested size: 354.12434pt x 256.55653pt.
 
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 \T1/lmr/m/n/10.95 16 []
@@ -1072,7 +1072,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  99i,14n,94p,575b,864s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/doublestroke/dsrom10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmb10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmro10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmss10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmtto10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/zapfchan/uzcmi8a.pfb>
-Output written on evomap-JSS.pdf (26 pages, 5661919 bytes).
+Output written on evomap-JSS.pdf (26 pages, 5642880 bytes).
 PDF statistics:
  683 PDF objects out of 1000 (max. 8388607)
  574 compressed objects within 6 object streams
