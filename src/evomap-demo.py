@@ -11,7 +11,6 @@
 # # Setup
 # First, create path variabels for each subfolder and import the essential packages.
 
-#TODO: Delete this later
 import time
 start_time = time.time()
 
