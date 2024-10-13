@@ -578,13 +578,14 @@ When setting starting positions, the \code{init} parameter accepts a list of sta
  another (static) mapping method, such as Classical Scaling, for these starting positions \citep{DeLeeuw+Mair:2009}.
 
 Alternatively, one can also set the \code{n_inits} argument to a positive integer. Since mapping methods 
-can be sensitive to the choice of starting positions for gradient descent, it's often advisable to compare results
+can be sensitive to the choice of starting positions for gradient descent, it's always advisable to compare results
 across different choices. When \code{n_inits} is greater than one, the optimization runs \code{n_inits} times with 
 different random starting positions, reports convergence results for all runs, and stores the best solution 
 (i.e., the one with the lowest cost value).
 
-In our example, we employ the Classical Scaling solution from the first time period as the starting positions for all 
-periods. Classical Scaling is fully deterministic, does not rely on random seeds, and offers full reproducibility. 
+In our example, we employ a different strategy and use the Classical Scaling solution from the first time period \
+as the starting positions for all periods. Classical Scaling is fully deterministic, does not rely on random seeds, 
+and offers full reproducibility - which makes it well suitable to generate starting positions. 
 Classical Scaling can be applied via \code{CMDS} in \code{evomap.mapping}, similar to other 
 mapping methods, by using \code{fit\_transform()}. Using \code{CMDS}, we generate a list of identical starting positions 
 for each period:

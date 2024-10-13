@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.20)  13 OCT 2024 13:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.20)  13 OCT 2024 14:08
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -857,7 +857,7 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 <../gen/Fig5_hyperparameters.PNG, id=371, 1294.1148pt x 859.7721pt>
 File: ../gen/Fig5_hyperparameters.PNG Graphic file (type png)
 <use ../gen/Fig5_hyperparameters.PNG>
-Package pdftex.def Info: ../gen/Fig5_hyperparameters.PNG  used on input line 625.
+Package pdftex.def Info: ../gen/Fig5_hyperparameters.PNG  used on input line 626.
 (pdftex.def)             Requested size: 354.12434pt x 235.2639pt.
 
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
@@ -873,7 +873,7 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.650 \end{itemize}
+l.651 \end{itemize}
                     <../gen/Fig5_hyperparameters.PNG>]
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 [] \T1/lmr/m/n/10.95 15
@@ -883,12 +883,12 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 <../gen/Fig6_static_snapshots.png, id=396, 1437.9321pt x 425.6703pt>
 File: ../gen/Fig6_static_snapshots.png Graphic file (type png)
 <use ../gen/Fig6_static_snapshots.png>
-Package pdftex.def Info: ../gen/Fig6_static_snapshots.png  used on input line 744.
+Package pdftex.def Info: ../gen/Fig6_static_snapshots.png  used on input line 745.
 (pdftex.def)             Requested size: 354.12434pt x 104.83247pt.
 <../gen/Fig7_draw_map_illustrations.png, id=398, 787.743pt x 570.6921pt>
 File: ../gen/Fig7_draw_map_illustrations.png Graphic file (type png)
 <use ../gen/Fig7_draw_map_illustrations.png>
-Package pdftex.def Info: ../gen/Fig7_draw_map_illustrations.png  used on input line 765.
+Package pdftex.def Info: ../gen/Fig7_draw_map_illustrations.png  used on input line 766.
 (pdftex.def)             Requested size: 354.12434pt x 256.55653pt.
 
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
@@ -904,17 +904,17 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.797 \begin{CodeInput}
+l.798 \begin{CodeInput}
                        
 pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.797 \begin{CodeInput}
+l.798 \begin{CodeInput}
                         <../gen/Fig6_static_snapshots.png> <../gen/Fig7_draw_map_illustrations.png>]
 <../gen/Fig8_dynamic_map_and_trajectories.png, id=416, 1147.4067pt x 498.4221pt>
 File: ../gen/Fig8_dynamic_map_and_trajectories.png Graphic file (type png)
 <use ../gen/Fig8_dynamic_map_and_trajectories.png>
-Package pdftex.def Info: ../gen/Fig8_dynamic_map_and_trajectories.png  used on input line 808.
+Package pdftex.def Info: ../gen/Fig8_dynamic_map_and_trajectories.png  used on input line 809.
 (pdftex.def)             Requested size: 354.12434pt x 153.82477pt.
 
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
@@ -925,30 +925,25 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.847 \end{CodeOutput}
+l.848 \end{CodeOutput}
                        <../gen/Fig8_dynamic_map_and_trajectories.png>]
-Underfull \hbox (badness 1735) in paragraph at lines 860--861
+Underfull \hbox (badness 1735) in paragraph at lines 861--862
 []\T1/lmr/m/n/10.95 0 (good) to Inf
  []
 
 
-Underfull \hbox (badness 4595) in paragraph at lines 861--862
+Underfull \hbox (badness 4595) in paragraph at lines 862--863
 []\T1/lmr/m/n/10.95 -1 (poor) to 1
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 862--862
+Underfull \hbox (badness 10000) in paragraph at lines 863--863
 []\T1/lmr/m/n/10.95 Agreement in near-est
  []
 
 
-Underfull \hbox (badness 7064) in paragraph at lines 862--862
+Underfull \hbox (badness 7064) in paragraph at lines 863--863
 \T1/lmr/m/n/10.95 neigh-bors be-tween data
- []
-
-
-Underfull \hbox (badness 7667) in paragraph at lines 862--863
-[]\T1/lmr/m/n/10.95 0 (poor) to 1
  []
 
 
@@ -967,17 +962,22 @@ Underfull \hbox (badness 7667) in paragraph at lines 865--866
  []
 
 
-Underfull \hbox (badness 4595) in paragraph at lines 866--866
+Underfull \hbox (badness 7667) in paragraph at lines 866--867
+[]\T1/lmr/m/n/10.95 0 (poor) to 1
+ []
+
+
+Underfull \hbox (badness 4595) in paragraph at lines 867--867
 []\T1/lmr/m/n/10.95 -1 (poor) to 1
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 892--892
+Underfull \hbox (badness 10000) in paragraph at lines 893--893
 []\T1/lmr/m/n/10.95 Misalignment
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 892--892
+Underfull \hbox (badness 10000) in paragraph at lines 893--893
 []\T1/lmr/m/n/10.95 Persistence
  []
 
@@ -990,12 +990,12 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 pdfTeX warning (ext4): destination with the same identifier (name{table.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.904 \section
+l.905 \section
               {Advanced Features}]
 <../gen/Fig9_grid_search.png, id=437, 1315.5549pt x 426.393pt>
 File: ../gen/Fig9_grid_search.png Graphic file (type png)
 <use ../gen/Fig9_grid_search.png>
-Package pdftex.def Info: ../gen/Fig9_grid_search.png  used on input line 967.
+Package pdftex.def Info: ../gen/Fig9_grid_search.png  used on input line 968.
 (pdftex.def)             Requested size: 354.12434pt x 114.7763pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1009,7 +1009,7 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 pdfTeX warning (ext4): destination with the same identifier (name{table.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.969 \end{figure}
+l.970 \end{figure}
                   ]
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 [] \T1/lmr/m/n/10.95 21
@@ -1019,12 +1019,12 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.995 \end{enumerate}
+l.996 \end{enumerate}
                       <../gen/Fig9_grid_search.png>]
 <../gen/Fig10_unbalanced.png, id=454, 1004.3121pt x 425.6703pt>
 File: ../gen/Fig10_unbalanced.png Graphic file (type png)
 <use ../gen/Fig10_unbalanced.png>
-Package pdftex.def Info: ../gen/Fig10_unbalanced.png  used on input line 1052.
+Package pdftex.def Info: ../gen/Fig10_unbalanced.png  used on input line 1053.
 (pdftex.def)             Requested size: 354.12434pt x 150.09102pt.
 
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
@@ -1040,7 +1040,7 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 pdfTeX warning (ext4): destination with the same identifier (name{figure.10}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1063 \section
+l.1064 \section
                {Summary and Discussion} \label{sec:summary} <../gen/Fig10_unbalanced.png>] (./evomap-JSS.bbl
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 \T1/lmr/m/n/10.95 24 []
@@ -1058,7 +1058,7 @@ Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 
 [26])
 LaTeX Font Info:    Font shape `T1/pzc/m/n' in size <13> not available
-(Font)              Font shape `T1/pzc/m/it' tried instead on input line 1092.
+(Font)              Font shape `T1/pzc/m/it' tried instead on input line 1093.
 
 Overfull \hbox (10.94998pt too wide) has occurred while \output is active
 [] \T1/lmr/m/n/10.95 27
@@ -1077,7 +1077,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  99i,14n,94p,575b,864s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/doublestroke/dsrom10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmb10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmro10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmss10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmtto10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/zapfchan/uzcmi8a.pfb>
-Output written on evomap-JSS.pdf (27 pages, 5658527 bytes).
+Output written on evomap-JSS.pdf (27 pages, 5658598 bytes).
 PDF statistics:
  687 PDF objects out of 1000 (max. 8388607)
  577 compressed objects within 6 object streams
