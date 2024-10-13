@@ -15,4 +15,4 @@ python src/evomap-demo.py
 ```
 An interactive version of this demo is available in 'src/evomap-demo.ipynb' which runs via GoogleColab.
 
-Last updated/tested: Oct 9 2024 using MacOS 13.5.2 and evomap version 0.4.2
+Last updated/tested: Oct 13 2024 using MacOS 13.5.2 and evomap version 0.4.3
