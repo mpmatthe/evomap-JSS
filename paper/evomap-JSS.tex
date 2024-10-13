@@ -88,8 +88,8 @@ and demonstrates its application with an extensive example. }
 
 \section[Introduction]{Introduction} \label{sec:intro}
 
-Mapping, also termed 'scaling', encompasses a range of statistical methods that analyze data 
-consisting of pairwise relationships through spatial representations, often referred to as 'maps'. 
+Mapping, also termed "scaling", encompasses a range of statistical methods that analyze data 
+consisting of pairwise relationships through spatial representations, often referred to as "maps". 
 These methods project pairwise relationships onto configurations where objects are positioned 
 as points within a lower-dimensional space. The resulting maps facilitate exploring the data structure, reveal hidden patterns, 
 and help identify key dimensions of difference.
@@ -268,12 +268,13 @@ where \\
   We refer to \cite{Matthe+Ringel+Skiera:2023} for more details and intuition on \emph{EvoMap}'s cost function.
 \end{description}
 
-Figure \ref{fig:dynamic-map-illustration} demonstrates dynamic mapping for nine technology firms over 20 years, 
-contrasting a static 1998 snapshot (left) with their evolving positions (right). The dynamic map, 
-created by applying \emph{EvoMap} to 20 dissimilarity matrices representing 20 years, reveals how the firms' positions evolved over time. 
-Apple and Western Digital, for instance, part ways as Apple ventures into the software space - bringing it closer to firms like Intuit. 
-Microsoft and Oracle converge further, while the telecommunication firms’ positions
-remain static in comparison. In its remainder, this paper details how to create dynamic maps
+Figure \ref{fig:dynamic-map-illustration} demonstrates dynamic mapping for nine technology firms over 20 years. 
+Using \emph{EvoMap}, we generated a sequence of 20 snapshots; the left graph displays the first 
+snapshot from 1998, while the right graph depicts the firms' evolving positions over the subsequent two decades. 
+The dynamic map on the right highlights key shifts in the firms' positions:  
+Apple and Western Digital diverge as Apple ventures into the software space, drawing it closer 
+to firms like Intuit. Meanwhile, Microsoft and Oracle converge, and the positions of telecommunication firms
+remain relatively static. The remainder of this paper details how to create such dynamic maps
  using the \pkg{evomap} package.
 
 \begin{figure}
@@ -295,10 +296,10 @@ remain static in comparison. In its remainder, this paper details how to create 
 \end{CodeChunk}
 
 The installation requires \proglang{Python} version 3.9 or newer. 
-At the time of writing the latest release of \pkg{evomap} is version 0.4.0. Updates are actively developed on GitHub, 
+At the time of writing the latest release of \pkg{evomap} is version 0.4.3. Updates are actively developed on GitHub, 
 available at \href{https://github.com/mpmatthe/evomap}{https://github.com/mpmatthe/evomap} and subsequently released to PyPI.
 
-\subsection{Dependencies}
+\subsection{Key Dependencies}
 
 \pkg{evomap} draws on a limited number of other packages. It relies on \pkg{numpy} and \pkg{scipy} for 
 numerical computations and \pkg{matplotlib} and \pkg{seaborn} for plotting. To optimize runtime, individual functions 
@@ -306,7 +307,7 @@ use the just-in-time \proglang{C}-compiler \pkg{numba}.
 
 \subsection{Package Overview}
 
-\pkg{evomap} is structured into six key modules\footnote{For clarity, the unified term 'module' encompasses 
+\pkg{evomap} is structured into six core modules\footnote{For clarity, the unified term 'module' encompasses 
 submodules, modules, and subpackages.}, designed to streamline the analysis workflow:
 
 \vbox{%
@@ -364,8 +365,8 @@ For example, consider longitudinal data represented by a sequence of 20 dissimil
 \end{CodeChunk}
 
 To apply non-metric MDS, instantiate \code{EvoMDS()}, specify the \code{mds\_type} as \code{'ordinal'}, 
-set its hyperparameters $\alpha$ and $p$ (whose role we detail later), and initial starting positions. Then, fit 
-EvoMap to your data: 
+set its hyperparameters $\alpha$ and $p$ (whose role we detail later), and provide initial starting positions \code{init}. 
+Then, fit EvoMap to your data: 
 
 \begin{Code}
 >>> from evomap.mapping import EvoMDS   
@@ -388,7 +389,7 @@ positioning the firms on two dimensions over 20 years.
 \end{CodeChunk}
 
 To explore the result, we can visualize the point coordinates stored in \code{X_t} with \code{draw_dynamic_map()},
-providing labels, and optionally displaying arrows and axes. Figure \ref{fig:dynamic-map} showcases the resultant 
+providing labels, and optionally displaying movement arrows and axes. Figure \ref{fig:dynamic-map} showcases the resultant 
 evolution of the nine firms' positions from 1998 to 2017. 
 
 \vbox{
@@ -550,13 +551,13 @@ relationships among objects over time. For example, to use EvoMDS for Multidimen
 
 The key parameters to consider when initializing EvoMap include:
 \begin{itemize}
-  \item \textbf{EvoMap's Hyperparameters}, $\alpha$ and $p$, which regulate the degree of alignment and smoothness.
-  \item \textbf{Method-Specific Arguments}, which vary by the mapping method used. For instance, MDS requires the specify the \code{mds_type} %
-  (e.g., ratio, interval, or ordinal), while t-SNE requires to set its \code{perplexity}. 
   \item \textbf{Starting Positions}, \code{init}, which can significantly influence the optimization process and final % 
   mapping quality. 
+  \item \textbf{EvoMap's Hyperparameters}, $\alpha$ and $p$, which regulate the degree of alignment and smoothness.
   \item \textbf{Optimization Arguments}, which impact convergence and computational time. For example, \code{n_iters} %
   sets the number of iterations for the optimization algorithm.  
+  \item \textbf{Method-Specific Arguments}, which vary by the mapping method used. For instance, MDS requires the specify the \code{mds_type} %
+  (e.g., ratio, interval, or ordinal), while t-SNE requires to set its \code{perplexity}. 
 \end{itemize}
 
 The following sections outline these choices in more detail. 
@@ -572,9 +573,15 @@ process. This can be done in two ways:
     instantiating EvoMap.
 \end{enumerate}
 
-The \code{init} parameter accepts a list of starting positions matching the desired output shape, in this case, 
-\code{(9,2)}. A common strategy is to use the output of another (static) mapping method, such as Classical Scaling, for 
-these starting positions \citep{DeLeeuw+Mair:2009}.
+When setting starting positions, the \code{init} parameter accepts a list of starting positions matching
+ the desired output shape, in this case, \code{(9,2)}. A common strategy is to use the output of 
+ another (static) mapping method, such as Classical Scaling, for these starting positions \citep{DeLeeuw+Mair:2009}.
+
+Alternatively, one can also set the \code{n_inits} argument to a positive integer. Since mapping methods 
+can be sensitive to the choice of starting positions for gradient descent, it's often advisable to compare results
+across different choices. When \code{n_inits} is greater than one, the optimization runs \code{n_inits} times with 
+different random starting positions, reports convergence results for all runs, and stores the best solution 
+(i.e., the one with the lowest cost value).
 
 In our example, we employ the Classical Scaling solution from the first time period as the starting positions for all 
 periods. Classical Scaling is fully deterministic, does not rely on random seeds, and offers full reproducibility. 
@@ -656,7 +663,7 @@ and an indication of its successful convergence at iteration 105:
 \end{CodeInput}
 \begin{CodeOutput}
 [EvoMDS] Running Gradient Descent with Backtracking via Halving
-[EvoMDS] Iteration 499: gradient norm vanished. Final cost: 3.86
+[EvoMDS] Iteration 535: gradient norm vanished. Final cost: 3.87
 \end{CodeOutput}
 \end{CodeChunk}
 
@@ -676,16 +683,17 @@ how the cost function values decrease monotonically, until the gradient norm van
 \end{CodeInput}
 \begin{CodeOutput}
 [EvoMDS] Running Gradient Descent with Backtracking via Halving
-[EvoMDS] Iteration 50 -- Cost: 3.88 -- Gradient Norm: 0.0134
-[EvoMDS] Iteration 100 -- Cost: 3.88 -- Gradient Norm: 0.0051
-[EvoMDS] Iteration 150 -- Cost: 3.87 -- Gradient Norm: 0.0059
-[EvoMDS] Iteration 200 -- Cost: 3.87 -- Gradient Norm: 0.0054
-[EvoMDS] Iteration 250 -- Cost: 3.87 -- Gradient Norm: 0.0064
-[EvoMDS] Iteration 300 -- Cost: 3.87 -- Gradient Norm: 0.0028
-[EvoMDS] Iteration 350 -- Cost: 3.87 -- Gradient Norm: 0.0058
-[EvoMDS] Iteration 400 -- Cost: 3.87 -- Gradient Norm: 0.0065
-[EvoMDS] Iteration 450 -- Cost: 3.86 -- Gradient Norm: 0.0060
-[EvoMDS] Iteration 499: gradient norm vanished. Final cost: 3.86
+[EvoMDS] Iteration 50 -- Cost: 3.90 -- Gradient Norm: 0.0176
+[EvoMDS] Iteration 100 -- Cost: 3.88 -- Gradient Norm: 0.0089
+[EvoMDS] Iteration 150 -- Cost: 3.88 -- Gradient Norm: 0.0100
+[EvoMDS] Iteration 200 -- Cost: 3.88 -- Gradient Norm: 0.0059
+[EvoMDS] Iteration 250 -- Cost: 3.88 -- Gradient Norm: 0.0052
+[EvoMDS] Iteration 300 -- Cost: 3.88 -- Gradient Norm: 0.0045
+[EvoMDS] Iteration 350 -- Cost: 3.88 -- Gradient Norm: 0.0024
+[EvoMDS] Iteration 400 -- Cost: 3.87 -- Gradient Norm: 0.0121
+[EvoMDS] Iteration 450 -- Cost: 3.87 -- Gradient Norm: 0.0037
+[EvoMDS] Iteration 500 -- Cost: 3.87 -- Gradient Norm: 0.0046
+[EvoMDS] Iteration 535: gradient norm vanished. Final cost: 3.87
 \end{CodeOutput}
 \end{CodeChunk}
 
@@ -834,8 +842,8 @@ for the benefit of alignment.
 >>> print(evomds.cost_static_avg_.round(4))
 \end{CodeInput}
 \begin{CodeOutput}
-0.1835
-0.1910
+0.1875
+0.1911
 \end{CodeOutput}
 \end{CodeChunk}
 
@@ -872,8 +880,8 @@ better aligned and movement paths are smoother (thus, easier to interpret), whil
 >>> persistence_score(X_t).round(4)
 \end{CodeInput}
 \begin{CodeOutput}
-0.0442
-0.6405
+0.0468
+0.6484
 \end{CodeOutput}
 \end{CodeChunk}
 
@@ -883,9 +891,9 @@ better aligned and movement paths are smoother (thus, easier to interpret), whil
     \hline
     Test & Misalignment Score & Persistence Score & Static Cost \\
     \hline
-    Independent MDS & 0.9982 & -0.6083 & 0.1835 \\
-    Independent MDS \newline + Alignment & 0.3204 & -0.2730 & 0.1835 \\
-    EvoMDS & 0.0442 & 0.6405 & 0.1910 \\
+    Independent MDS & 0.9737 & -0.5589 & 0.1875 \\
+    Independent MDS \newline + Alignment & 0.3074 & -0.2718 & 0.1875 \\
+    EvoMDS & 0.0468 & 0.6484 & 0.1911 \\
     \hline
   \end{tabular}  
   \caption{\label{tab:evaluation-results} Evaluation Results}

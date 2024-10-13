@@ -2,15 +2,10 @@
 # 
 # This script replicates the paper: 'evomap - a Toolbox for Dynamic Mapping in Python'.
 # 
-# Python environment: evomap-package
-# 
-# For details on the used package versions, see the file evomap-package-environment.yml
-# 
-# All code was last run on MacOS 13.5.2.
+# All code was last run on MacOS 13.5.2 using evomap version 0.4.3
 
 # # Setup
 # First, create path variabels for each subfolder and import the essential packages.
-
 import time
 start_time = time.time()
 
@@ -30,10 +25,10 @@ for file in os.listdir(PATH_OUT):
     os.remove(os.path.join(PATH_OUT, file))
 
 # Plotting parameters
-title_fontdict = {'size': 18, 'family': 'Arial'}
-title_fontdict_large = {'size': 20, 'family': 'Arial'}
-label_fontdict = {'size': 16, 'family': 'Arial'}
-label_fontdict_large = {'size': 18, 'family': 'Arial'}
+title_fontdict = {'size': 20, 'family': 'sans-serif'}
+title_fontdict_large = {'size': 22, 'family': 'sans-serif'}
+label_fontdict = {'size': 18, 'family': 'sans-serif'}
+label_fontdict_large = {'size': 20, 'family': 'sans-serif'}
 
 # Set random seed for reproducibility
 np.random.seed(111)
@@ -45,11 +40,11 @@ np.random.seed(111)
 # ## Loading the Data
 # 
 # For most of this illustration, we use a small sample from the TNIC data available through the dataset submodule.
-
 from evomap.datasets import load_tnic_sample_tech
 data = load_tnic_sample_tech()
 
-# The sample is organized as an edgelist where each observation corresponds to a single firm-firm pair. It contains a total of 9 firms and their pairiwse relationships over 20 years.
+# The sample is organized as an edgelist where each observation corresponds to a single firm-firm pair. 
+# It contains a total of 9 firms and their pairiwse relationships over 20 years.
 print(data.groupby('name1').agg({'year':'nunique'}))
 
 # First, transform the edgelist into a sequence of similarity matrices
@@ -61,21 +56,19 @@ S_t, labels_t = edgelist2matrices(
     id_var_j = 'name2', 
     time_var = 'year')
 
-# The result is a sequence of matrices and a sequence of labels. As the sample is balanced, all labels remain the same over time in this example. Therefore, we simply use the first list of labels in what follows. 
+# The result is a sequence of matrices and a sequence of labels. 
+# As the sample is balanced, all labels remain the same over time in this example. 
+# Therefore, we simply use the first list of labels in what follows. 
 labels = labels_t[0]
 print(labels)
 
 # Preview of a single similarity matrix:
 print(S_t[0].round(2))
 
-# To map this similarity matrix via MDS, we first transform it into dissimilarities using the sim2diss function from the preprocessing submodule.
+# To map this similarity matrix via MDS, we first transform it into dissimilarities using the sim2diss function 
+# from the preprocessing submodule.
 from evomap.preprocessing import sim2diss
-D_t = []
-for S in S_t:
-    D_t.append(sim2diss(S, transformation = 'mirror'))
-
-print(D_t[0].shape)
-print(D_t[0].round(2))
+D_t = [sim2diss(S, transformation = 'mirror') for S in S_t]
 
 # ## Illustration of Static Mapping
 # 
@@ -84,7 +77,6 @@ periods = data.year.unique()
 n_periods = len(periods)
 n_samples = len(labels)
 D_0 = D_t[0]
-
 print("First snapshot corresponds to the year {0}".format(periods[0]))
 
 # Here, we use non-metric ordinal MDS, initialized via Classical Scaling. 
@@ -95,7 +87,6 @@ X_0 = mds.fit_transform(D_0)
 # To display the results, first draw a single snapshot.
 from matplotlib import pyplot as plt
 from evomap.printer import draw_map
-
 fig, ax = plt.subplots(1,2, figsize = (16,8))
 draw_map(
     X_0, 
@@ -104,12 +95,23 @@ draw_map(
     axes_at_origin = False, 
     show_grid = False, 
     ax = ax[0])
-
 ax[0].set_title('A: Static MDS Map \n', fontdict= title_fontdict_large)
+
+# Wiggle labels a bit for AT&T and US CELLUAR to prevent overlap
+offset_x = 0.0
+offset_y = 0.03
+texts = ax[0].texts
+for text in texts:
+    label_text = text.get_text()
+    if label_text == 'US CELLULAR CORP':
+        x, y = text.get_position()
+        text.set_position((x + offset_x, y + offset_y))
+    elif label_text == 'AT&T INC':
+        x, y = text.get_position()
+        text.set_position((x + offset_x, y - offset_y))
 
 # Then, add the Shepard diagram to evaluate the snapshot's mapping quality. 
 from evomap.printer import draw_shepard_diagram
-    
 draw_shepard_diagram(X_0, D_0, ax = ax[1])
 ax[1].set_title('B: Shepard Diagram \n', fontdict= title_fontdict_large)
 ax[1].legend(['Observed dissimilarities', 'Transformed dissimilariites'], loc = 4, prop = label_fontdict)
@@ -124,46 +126,39 @@ fig.savefig(os.path.join(PATH_OUT, 'Fig1_static_mapping.PNG'), dpi = 300)
 # 
 # To illustrate Dynamic Mapping, we apply EvoMap, implemented for MDS, to the entire sequence of matrices. 
 # 
-# First, we generate a sequence of starting configurations using Classical Scaling applied to the first period.
+# The input data consists of a sequence of 20 dissimilarity matrices, each of shape (9,9)
+print(len(D_t))
+print(D_t[0].shape)
 
+# First, we generate a sequence of starting configurations using Classical Scaling applied to the first period.
 from evomap.mapping import CMDS
 cmds_t = []
 cmds = CMDS().fit_transform(D_t[0])
-#Debug
-#eps = 1e-12
-#cmds = np.round(cmds, -int(np.log10(eps)))
 for t in range(n_periods):
     cmds_t.append(cmds)
 
-print('CMDS Output:')
-print(cmds_t[0][0,0].round(20))
-
 # Then, we apply EvoMap. Here, we set the alignment penalty (alpha) to .2, and add some smoothing by increasing p to 2:
 from evomap.mapping import EvoMDS
-
 evomds = EvoMDS(
     alpha = .2, 
     p = 2, 
     mds_type = 'ordinal', 
     init = cmds_t)
-
 X_t = evomds.fit_transform(D_t) 
 
 print(len(X_t))
 print(X_t[0].shape)
 
-from evomap.printer import draw_dynamic_map
-
 fig, ax = plt.subplots(1,2, figsize = (14, 6))
-
 draw_map(X_t[0], label = labels, show_axes=True, show_box = True, ax = ax[0])
+
+from evomap.printer import draw_dynamic_map
 draw_dynamic_map(X_t, 
                  label=labels,
                  show_axes=True,
                  show_last_positions_only=True, 
                  show_arrows=True, 
                  ax = ax[1])
-
 
 ax[0].set_title('A: Snapshot in {}'.format(periods[0]), fontdict = title_fontdict)
 ax[1].set_title('B: Trajectories throughout {0} to {1}'.format(periods[0], periods[-1]), fontdict = title_fontdict)
@@ -182,23 +177,17 @@ fig.savefig(os.path.join(PATH_OUT, 'Fig2_dynamic_mapping.PNG'), dpi = 300)
 # ## Basic Syntax
 # 
 # The basic usecase of EvoMap is creating dynamic maps of evolving relationship data, like the following:
-
 evomds = EvoMDS(
     alpha = .2, 
     p = 2, 
     mds_type = 'ordinal', 
     init = cmds_t)
-
 X_t = evomds.fit_transform(D_t) 
 
 draw_dynamic_map(X_t, 
                  label=labels, 
                  show_arrows=True, 
                  show_axes=True)
-
-#Debug
-print('EVOMDS Output:')
-print(X_t[0][0,0].round(20))
 
 fig, ax = plt.subplots(figsize = (6,6))
 draw_dynamic_map(X_t, label = labels, show_arrows= True, show_axes = True, ax = ax)
@@ -209,7 +198,6 @@ fig.savefig(os.path.join(PATH_OUT, 'Fig3_dynamic_map.PNG'), dpi = 300)
 # Before applying EvoMap, all input data needs to be formatted as a sequence of square matrices.
 # 
 # Here, our data is represented as an edgelist:
-
 table_overview = pd.concat([data.head(), data.tail()], axis = 0)
 table_overview = table_overview[['year', 'name1', 'name2', 'score', 'sic1', 'sic2', 'size1', 'size2']]
 table_overview.size1 = table_overview.size1.round(2)
@@ -219,19 +207,15 @@ print(table_overview)
 table_overview.to_csv(os.path.join(PATH_OUT, "table2-data-overview.csv"))
 
 # The basic syntax to use evomap consists of the following lines of code, which instantinates the method and fits it to the data. Note that the import statement is not necessary here, as we imported the class before, but only included for completeness of this minimal example. 
-
 from evomap.mapping import EvoMDS
-
 evomds = EvoMDS(
     alpha = .2, 
     p = 2, 
     mds_type = 'ordinal', 
     init = cmds_t)
-
 X_t = evomds.fit_transform(D_t) 
 
 # The output is a list of arrays shape (n_samples, n_dims)
-
 print(type(X_t))
 print(len(X_t))
 print(X_t[0].round(2))
@@ -340,13 +324,11 @@ fig.savefig(os.path.join(PATH_OUT, 'Fig6_static_snapshots.PNG'), dpi = 300)
 sic_codes = []
 for firm in labels:
     sic_codes.append(data.query('name1 == @firm').sic1.unique()[0])
-print(sic_codes)
 
 # Or, we can adjust the size of each point proportional to the firm's market value:
 sizes = []
 for firm in labels:
     sizes.append(data.query('name1 == @firm').size1.unique()[0].round(2))
-print(sizes)
 
 # Such variables can be added to the map via the 'c' and 'size' arguments:
 sic = data.sic1
@@ -358,8 +340,6 @@ draw_map(X_t[0], label = labels, show_axes = False, color = sic_codes, show_lege
 draw_map(X_t[0], label = labels, color = sic_codes, size = sizes, show_axes=False,
 title = periods[0], ax = ax[1,1])
 fig.tight_layout()
-
-#ax[1,0].legend(title = 'SIC Code', loc = 'lower right', bbox_to_anchor = (1.22, 0.0))
 
 fig.savefig(os.path.join(PATH_OUT, 'Fig7_draw_map_illustrations.PNG'), dpi = 300)
 
@@ -424,7 +404,6 @@ fig.savefig(os.path.join(PATH_OUT, 'Fig8_dynamic_map_and_trajectories.PNG'), dpi
 # ### Cost Function Values
 cmds_indep = []
 for t in range(n_periods):
-  #Debug
   cmds_indep.append(CMDS().fit_transform(D_t[t]))
 
 evomds_indep = EvoMDS(
@@ -436,7 +415,6 @@ print(evomds_indep.cost_static_avg_.round(4))
 print(evomds.cost_static_avg_.round(4))
 
 # ### Evaluation Metrics
-
 from evomap.metrics import *
 print(misalign_score(X_t).round(4))
 print(persistence_score(X_t).round(4))
@@ -484,11 +462,9 @@ param_grid = {
     'alpha': np.linspace(0, 1.5, 15), 
     'p': [1,2]}
 
-
 # Next, define the metrics on which each parameter combination is to be evaluated
 
 from evomap.metrics import misalign_score, persistence_score, avg_hitrate_score
-
 metrics = [misalign_score, persistence_score, avg_hitrate_score]
 metric_labels = ['Misalignment', 'Persistence', 'Hitrate']
 
@@ -556,7 +532,6 @@ S_t, inc_t, labels = expand_matrices(S_t, labels)
 print(S_t[0].shape)
 
 # The inclusion vectors indicate which objects will be considered by the mapping algorithm in each period:
-
 print(inc_t[0])
 print(inc_t[-1])
 
@@ -567,7 +542,6 @@ for S in S_t:
     D_t.append(D)
 
 # We define starting positions:
-
 init_t = [np.concatenate([cmds, np.array([[0,0]])], axis = 0) for cmds in cmds_t]
 
 # And run EvoMap, passing the inclusion vectors to fit_transform:
@@ -603,7 +577,6 @@ fig.savefig(os.path.join(PATH_OUT, 'Fig10_unbalanced.PNG'), dpi = 300)
 # # Further Ressources
 # 
 # For further usage examples, based on a larger dataset, see https://evomap.readthedocs.io/en/latest/dynamic%20mapping.html
-
 end_time = time.time()
 elapsed_time = end_time - start_time
 print(f"Execution time: {elapsed_time:.2f} seconds")
