@@ -9,10 +9,10 @@ conda activate evomap-package
 pip install evomap
 ```
 
+**Note**: Python 3.13 has just been released and may not yet be compatible with some of evomap's dependencies. We recommend using Python 3.12 or earlier.
+
 Then, run the replication code:
 ```
 python src/evomap-demo.py
 ```
-An interactive version of this demo is available in 'src/evomap-demo.ipynb' which runs via GoogleColab.
-
-Last updated/tested: Oct 13 2024 using MacOS 13.5.2 and evomap version 0.4.3
+Last updated/tested: Oct 14 2024 using MacOS 13.5.2, Python 3.12.0, and evomap version 0.4.4
