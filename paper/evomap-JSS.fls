@@ -1,8 +1,8 @@
-PWD /Users/mpmatthe/Dropbox (Personal)/Promotion/Research-Projects/Projects/02-Single-Author/Submissions/JSTAT-II/evomap-JSS/paper
+PWD /Users/mpmatthe/Dropbox (Personal)/Promotion/Research-Projects/Projects/02-Single-Author/Submissions/JSTAT-II/evomap-replication-files/paper
 INPUT /usr/local/texlive/2023/texmf.cnf
 INPUT /usr/local/texlive/2023/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /Users/mpmatthe/Dropbox (Personal)/Promotion/Research-Projects/Projects/02-Single-Author/Submissions/JSTAT-II/evomap-JSS/paper/evomap-JSS.tex
+INPUT /Users/mpmatthe/Dropbox (Personal)/Promotion/Research-Projects/Projects/02-Single-Author/Submissions/JSTAT-II/evomap-replication-files/paper/evomap-JSS.tex
 OUTPUT evomap-JSS.log
 INPUT ./jss.cls
 INPUT ./jss.cls
