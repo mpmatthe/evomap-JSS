@@ -2,7 +2,7 @@
 # 
 # This script replicates the paper: 'evomap - a Toolbox for Dynamic Mapping in Python'.
 # 
-# All code was last run on MacOS 13.5.2 using evomap version 0.4.3
+# All code was last run on MacOS 13.5.2 using Python version 3.12.0 evomap version 0.4.4
 
 # # Setup
 # First, create path variabels for each subfolder and import the essential packages.
