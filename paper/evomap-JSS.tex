@@ -301,9 +301,10 @@ available at \href{https://github.com/mpmatthe/evomap}{https://github.com/mpmatt
 
 \subsection{Key Dependencies}
 
-\pkg{evomap} draws on a limited number of other packages. It relies on \pkg{numpy} and \pkg{scipy} for 
-numerical computations and \pkg{matplotlib} and \pkg{seaborn} for plotting. To optimize runtime, individual functions 
-use the just-in-time \proglang{C}-compiler \pkg{numba}.
+\pkg{evomap} relies on a limited number of other packages. It uses \pkg{numpy} and \pkg{scipy} for numerical 
+computations, and \pkg{matplotlib} and \pkg{seaborn} for plotting. Additionally, \pkg{evomap} uses individual 
+routines from \pkg{scikit-learn} and \pkg{statsmodels}, and employs the just-in-time \proglang{C}-compiler \pkg{numba} 
+to optimize runtime.
 
 \subsection{Package Overview}
 
@@ -444,6 +445,12 @@ framework affect all mapping implementations uniformly.
 Currently, \pkg{evomap} provides implementations for three mapping methods (MDS, Sammon
 Mapping, t-SNE), which can serve as blueprints for future extensions. Having presented the
 general design and structure of the package, the next section illustrates its practical usage. 
+
+Note that the results reported in this paper were generated using Python version 3.12.0 and \pkg{evomap} 
+version 0.4.4 on macOS 13.5.2. While the \pkg{evomap} package is designed to be platform-independent, 
+minor differences in results may occur across operating systems (e.g., due to variations in floating-point 
+precision). However, results on other systems are expected to be very similar, and any differences should not 
+affect the qualitative conclusions drawn from the analyses.
 
 %% -- Detailed Usage Example -------------------------------------------
 

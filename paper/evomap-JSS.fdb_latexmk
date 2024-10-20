@@ -1,24 +1,24 @@
 # Fdb version 4
-["bibtex evomap-JSS"] 1728934159 "evomap-JSS.aux" "evomap-JSS.bbl" "evomap-JSS" 1728934165 0
+["bibtex evomap-JSS"] 1728934159 "evomap-JSS.aux" "evomap-JSS.bbl" "evomap-JSS" 1729438577 0
   "./jss.bst" 1631345509 32989 20bb38cc9c684ce32025a8fa283a9df6 ""
   "./refs.bib" 1713314544 11420 5d9eca18b4347e595ae227e5a135e10f ""
-  "evomap-JSS.aux" 1728934165 8391 1a007b0da89cbf45b0d82e90a3fec523 "pdflatex"
+  "evomap-JSS.aux" 1729438577 8391 1a007b0da89cbf45b0d82e90a3fec523 "pdflatex"
   (generated)
   "evomap-JSS.bbl"
   "evomap-JSS.blg"
   (rewritten before read)
-["pdflatex"] 1728934159 "/Users/mpmatthe/Dropbox (Personal)/Promotion/Research-Projects/Projects/02-Single-Author/Submissions/JSTAT-II/evomap-replication-files/paper/evomap-JSS.tex" "evomap-JSS.pdf" "evomap-JSS" 1728934165 0
-  "../gen/Fig10_unbalanced.png" 1728934020 256361 d541434b15f4163827db8a4cb1e545c9 ""
-  "../gen/Fig1_static_mapping.png" 1728933911 361510 8f21f3adfe4bf004db31413e855d23eb ""
-  "../gen/Fig2_dynamic_mapping.PNG" 1728933916 360085 067653fff3e338f0bdfbe632bf7d28f0 ""
-  "../gen/Fig3_dynamic_map.PNG" 1728933920 356528 c63dd01e42eccd4250dbba178ec5f611 ""
-  "../gen/Fig5_hyperparameters.PNG" 1728933939 2463598 40da3242d393d04a2eeb61a6dcf49357 ""
-  "../gen/Fig6_static_snapshots.png" 1728933947 334630 f63e3c95c861dff994d5ccc03ec59125 ""
-  "../gen/Fig7_draw_map_illustrations.png" 1728933948 264694 52ccd7f0a50732cd03d2badb97cfa87d ""
-  "../gen/Fig8_dynamic_map_and_trajectories.png" 1728933949 1141306 94da1925ff170d82e1696bd96b9613e7 ""
-  "../gen/Fig9_grid_search.png" 1728934008 397778 2fc49927eecf1d4b6cf0d8de2b51636c ""
+["pdflatex"] 1729438572 "/Users/mpmatthe/Dropbox (Personal)/Promotion/Research-Projects/Projects/02-Single-Author/Submissions/JSTAT-III/evomap-JSS/paper/evomap-JSS.tex" "evomap-JSS.pdf" "evomap-JSS" 1729438577 0
+  "../gen/Fig10_unbalanced.png" 1729438556 256361 d541434b15f4163827db8a4cb1e545c9 ""
+  "../gen/Fig1_static_mapping.png" 1729438450 361510 8f21f3adfe4bf004db31413e855d23eb ""
+  "../gen/Fig2_dynamic_mapping.PNG" 1729438454 360085 067653fff3e338f0bdfbe632bf7d28f0 ""
+  "../gen/Fig3_dynamic_map.PNG" 1729438458 356528 c63dd01e42eccd4250dbba178ec5f611 ""
+  "../gen/Fig5_hyperparameters.PNG" 1729438475 2463598 40da3242d393d04a2eeb61a6dcf49357 ""
+  "../gen/Fig6_static_snapshots.png" 1729438483 334630 f63e3c95c861dff994d5ccc03ec59125 ""
+  "../gen/Fig7_draw_map_illustrations.png" 1729438484 264694 52ccd7f0a50732cd03d2badb97cfa87d ""
+  "../gen/Fig8_dynamic_map_and_trajectories.png" 1729438485 1141306 94da1925ff170d82e1696bd96b9613e7 ""
+  "../gen/Fig9_grid_search.png" 1729438545 397778 2fc49927eecf1d4b6cf0d8de2b51636c ""
   "../misc/package-design.png" 1700513003 175786 22a55310f1948df9eca0b7b6f634aae5 ""
-  "/Users/mpmatthe/Dropbox (Personal)/Promotion/Research-Projects/Projects/02-Single-Author/Submissions/JSTAT-II/evomap-replication-files/paper/evomap-JSS.tex" 1728933913 55196 a00888892b24e11846a13e211e657d0e ""
+  "/Users/mpmatthe/Dropbox (Personal)/Promotion/Research-Projects/Projects/02-Single-Author/Submissions/JSTAT-III/evomap-JSS/paper/evomap-JSS.tex" 1729438403 55768 fc7f1151bd29b9041091721295cd49e7 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1254269338 2375 baa924870cfb487815765f9094cf3728 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc" 1202520719 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
@@ -250,10 +250,10 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1700489778 4623355 b8cad38412faebe1ce5b780a45db67bd ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1700489753 7883458 7da6bfc1397c1e6a62ca4e86af23d030 ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
-  "evomap-JSS.aux" 1728934165 8391 1a007b0da89cbf45b0d82e90a3fec523 "pdflatex"
+  "evomap-JSS.aux" 1729438577 8391 1a007b0da89cbf45b0d82e90a3fec523 "pdflatex"
   "evomap-JSS.bbl" 1728934159 10955 14db1e3e5b480a06fd986544f6ef2753 "bibtex evomap-JSS"
-  "evomap-JSS.out" 1728934165 4565 e51504c80e5c225e7b17322bd978877a "pdflatex"
-  "evomap-JSS.tex" 1728933913 55196 a00888892b24e11846a13e211e657d0e ""
+  "evomap-JSS.out" 1729438577 4565 e51504c80e5c225e7b17322bd978877a "pdflatex"
+  "evomap-JSS.tex" 1729438403 55768 fc7f1151bd29b9041091721295cd49e7 ""
   "jss.cls" 1631345509 14944 db7d8a9d305f6a2d1918636f010c1a18 ""
   "jsslogo.jpg" 1616433274 22731 b9564ddd59a06782310989e8f33db55e ""
   (generated)
